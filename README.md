@@ -1,4 +1,4 @@
-#Word Bridge
+Word Bridge
 
 Welcome to "Word Bridge" 🎮, a unique word association challenge! The game displays two words: one at the bottom (⬇️) and another at the top (⬆️) of your screen. Your exciting task 🧠 is to connect these words by building a bridge of related words, moving from the bottom ⬇️ to the top ⬆️. Imagine the bottom word is "moon" 🌙 and the top word is "tide" 🌊. You might link them like "moon 🌙 → gravity 🛸 → ocean 🌊 → tide 🌊." Starting from the lower word, each connection in your chain should logically lead upwards ⬆️ to your destination word at the top.
 
