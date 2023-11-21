@@ -44,7 +44,7 @@ function App() {
   const day = today.getDate();
   const month = today.getMonth() + 1;
   const year = today.getFullYear();
-  const newSeed = `${year}${month}${day+60}`;
+  const newSeed = `${year}${month}${day+Math.floor(Math.random() * 501)}`;
 
 
   const [start, setStart] = useState(generate({ min: 1, max: 1, seed: (newSeed).toString() })[0]);
