@@ -1,0 +1,6 @@
+.vertical-line {
+    width: 4px; /* Ancho de la línea vertical */
+    min-height: 2rem; /* Altura de la línea vertical (puede ajustarse según tus necesidades) */
+    background-color: #333; /* Color de la línea */
+    border-radius: 5px;
+  }

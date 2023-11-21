@@ -1,0 +1,72 @@
+.word-box input {
+    text-align: center !important;
+    font-weight: bold;
+}
+
+.word-box div {
+    border: 3px solid #333;
+    border-radius: 'px';
+}
+
+.MuiFilledInput-underline::after {
+    border-bottom-color: #333 !important;
+    
+
+}
+
+.MuiFilledInput {
+    text-align: center !important;
+}
+
+
+@keyframes shake {
+    0% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(-5px);
+        /* Mueve a la izquierda */
+    }
+
+    50% {
+        transform: translateX(5px);
+        /* Mueve a la derecha */
+    }
+
+    75% {
+        transform: translateX(-5px);
+        /* Mueve a la izquierda */
+    }
+
+    100% {
+        transform: translateX(5px);
+        /* Mueve a la derecha */
+    }
+}
+
+.shake-animation {
+    animation: shake 0.3s ease-in-out !important;
+}
+
+.color-change::after {
+    animation: color-change 0.3s linear !important;
+    transition: border-bottom-color 0.3s ease !important;
+}
+
+@keyframes color-change {
+    0% {
+        border-bottom-color: #333 !important;
+        /* Color inicial */
+    }
+
+    50% {
+        border-bottom-color: crimson !important;
+        /* Color intermedio */
+    }
+
+    100% {
+        border-bottom-color: #333 !important;
+        /* Color final (vuelve al original) */
+    }
+}

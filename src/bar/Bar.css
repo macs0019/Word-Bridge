@@ -1,0 +1,35 @@
+.bar-container {
+    display: flex;
+    width: 100%;
+    color: #333;
+    justify-content: center;
+    gap: 1.5rem;
+    align-items: center;
+    background-color: #f3f3f3;
+    z-index: 1;
+    height: 6vh;
+    position: relative;
+    /* Añadiendo sombra en la parte inferior */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
+    /* From https://css.glass */
+    background: rgba(255, 255, 255, 0.62);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+}
+.icon{
+    color: #333;
+}
+
+.tiles {
+    height: 4rem;
+    width: 4rem;
+    background-color: #333;
+    color: white; /* Nota: se ha removido la duplicidad en la propiedad color */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.calendar-grid{
+    
+}

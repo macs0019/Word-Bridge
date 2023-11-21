@@ -1,0 +1,93 @@
+.App {
+  text-align: center;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100vh;
+}
+
+.background {
+  position: absolute;
+  background-image: url('./files/background4.webp');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  filter: blur(4px);
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+main {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+
+}
+
+.center-container {
+  width: 30%;
+  display: flex;
+  background-color: #f3f3f3;
+  /* From https://css.glass */
+  background: rgba(255, 255, 255, 0.62);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  height: 94vh;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
+  z-index: 0;
+}
+
+.scroll-container {
+  display: flex;
+  flex-direction: column;
+  width: 95%;
+  align-items: center;
+  gap: 0.5rem;
+  margin: auto;
+  margin-top: 2.5rem;
+  max-height: 80vh;
+  overflow: auto;
+  position: relative;
+}
+
+.scroll-container::-webkit-scrollbar {
+  width: 5px; /* Width of the vertical scrollbar */
+  height: 5px; /* Height of the horizontal scrollbar */
+}
+
+/* Handle */
+.scroll-container::-webkit-scrollbar-thumb {
+  background: #333; /* Scrollbar color */
+  border-radius: 10px; /* Rounded corners for the scrollbar */
+}
+
+/* Handle on hover */
+.scroll-container::-webkit-scrollbar-thumb:hover {
+  background: #555; /* Scrollbar color on hover */
+}
+
+.fadeIn {
+  animation: fadeInAnimation 1s;
+}
+
+@keyframes fadeInAnimation {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.item {
+  transition: all 1s ease;
+}
