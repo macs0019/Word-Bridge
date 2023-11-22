@@ -65,6 +65,16 @@ function App() {
   }, [words]);
 
 
+  function ajustarAlturaContenedor() {
+    const alturaVisible = window.visualViewport.height;
+    const contenedor = document.getElementById('scroll-container');
+    contenedor.style.height = `${alturaVisible}px`;
+  }
+
+  // Ajustar al cargar y al cambiar el tamaño
+  window.addEventListener('load', ajustarAlturaContenedor);
+  window.addEventListener('resize', ajustarAlturaContenedor);
+
   const divRef = useRef(null);
   const InputPropsRef = useRef(null);
 
@@ -129,7 +139,7 @@ function App() {
       <main>
         <div className='background'></div>
         <div className='center-container'>
-          <div className='scroll-container'>
+          <div id={"scroll-container"} className='scroll-container'>
             <WordContainer canWritte={false} inputValue={end} index={words.length + 2}></WordContainer>
             {gameOver && <Line ></Line>}
             {!gameOver &&

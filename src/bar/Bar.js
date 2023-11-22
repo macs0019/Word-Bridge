@@ -14,33 +14,6 @@ import generateDateList from '../services/dateService';
 import { useEffect } from 'react';
 import { Grid } from '@mui/material';
 
-const style = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%) !important',
-    width: '40vw',
-    bgcolor: '#f3f3f3',
-    boxShadow: 24,
-    border: 'none',
-    outline: 'none',
-    p: 4,
-    maxHeight: '70vh',
-    overflow: 'auto',
-    background: "rgba(255, 255, 255, 0.8)",
-    boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
-    backdropFilter: "blur(5px)",
-    webkitBackdropFilter: "blur(5px)",
-    boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.15)",
-    borderRadius: '20px',
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '1rem',
-    alignItems: 'center',
-    wordWrap: "break-word",
-    whiteSpace: "normal",
-};
-
 const Bar = ({ changeDate }) => {
 
     const [openHelp, setOpenHelp] = useState(false);
@@ -124,7 +97,7 @@ const Bar = ({ changeDate }) => {
                 }}
             >
                 <Grow in={openCalendar} timeout={300}>
-                    <Box sx={style}>
+                    <Box className={"box-container"}>
                         <Typography id="modal-modal-title" variant="h6" component="h2" sx={{ fontWeight: 'bold', color: '#333', textAlign: 'center' }}>
                             📈 Levels history 📈
                         </Typography>

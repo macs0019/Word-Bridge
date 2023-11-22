@@ -39,6 +39,7 @@
     justify-content: center;
     word-wrap: break-word;
     white-space: normal;
+    padding: 1rem;
 
 }
 
@@ -92,6 +93,7 @@
     .box-container {
         width: 60vw;
     }
+
 }
 
 @media only screen and (max-width: 650px) {
