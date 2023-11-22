@@ -22,6 +22,7 @@ body {
 }
 
 main {
+  position: inherit;
   display: flex;
   width: 100%;
   height: 100%;
@@ -32,6 +33,7 @@ main {
 }
 
 .center-container {
+  position: relative;
   width: 30%;
   display: flex;
   background-color: #f3f3f3;
@@ -113,12 +115,14 @@ main {
   .center-container{
     width: 60%;
     overflow: none;
+    height: auto;
   }
 }
 @media only screen and (max-width: 400px) {
   .center-container{
     width: 80%;
     overflow: none;
+    height: auto;
   }
 }
 
