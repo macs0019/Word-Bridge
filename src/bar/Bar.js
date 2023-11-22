@@ -31,10 +31,14 @@ const style = {
     backdropFilter: "blur(5px)",
     webkitBackdropFilter: "blur(5px)",
     boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.15)",
-    borderRadius: '20px'
+    borderRadius: '20px',
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '1rem',
+    alignItems: 'center'
 };
 
-const Bar = () => {
+const Bar = ({ changeDate }) => {
 
     const [openHelp, setOpenHelp] = useState(false);
     const handleOpenHelp = () => setOpenHelp(true);
@@ -45,6 +49,11 @@ const Bar = () => {
     const handleCloseCalendar = () => setOpenCalendar(false);
 
     const [dateList, setDateList] = useState([]);
+
+    const changeDay = (date) => {
+        changeDate(date);
+        handleCloseCalendar(true);
+    }
 
     useEffect(() => {
         if (openCalendar) {
@@ -113,12 +122,15 @@ const Bar = () => {
             >
                 <Grow in={openCalendar} timeout={300}>
                     <Box sx={style}>
-                        <Grid container spacing={2}>
+                        <Typography id="modal-modal-title" variant="h6" component="h2" sx={{ fontWeight: 'bold', color: '#333', textAlign: 'center' }}>
+                            📈 Levels history 📈
+                        </Typography>
+                        <Grid container spacing={2} className='tiles-container'>
                             {dateList.map((date, index) => (
-                                <Grid item xs={2} key={index} className={"calendar-grid"}>
-                                    <Box className={"tiles"}
+                                <Grid item xs={'auto'} key={index} className={"calendar-grid"}>
+                                    <Box onClick={() => changeDay(date)} className={"tiles"}
                                     >
-                                        {index + 1}
+                                        {dateList.length - (index)}
                                     </Box>
                                 </Grid>
                             ))}

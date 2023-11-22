@@ -44,7 +44,7 @@ function App() {
   const day = today.getDate();
   const month = today.getMonth() + 1;
   const year = today.getFullYear();
-  const newSeed = `${year}${month}${day+Math.floor(Math.random() * 501)}`;
+  const newSeed = `${year}${month}${day}`;
 
 
   const [start, setStart] = useState(generate({ min: 1, max: 1, seed: (newSeed).toString() })[0]);
@@ -80,6 +80,19 @@ function App() {
     });
   }
 
+  function changeDate(date) {
+    const dt = new Date(date);
+    const daySeed = dt.getDate();
+    const monthSeed = dt.getMonth() + 1;
+    const yearSeed = dt.getFullYear();
+    const seed = `${yearSeed}${monthSeed}${daySeed}`;
+    setEnd(generate({ min: 1, max: 1, seed: (seed + 1).toString() })[0]);
+    const newStart = generate({ min: 1, max: 1, seed: (seed).toString() })[0];
+    setStart(newStart);
+    setWords(words => words.length > 0 ? [...words.slice(0, -1), newStart] : words);
+  }
+
+
   function stopShakeAnimation() {
     divRef.current.removeEventListener("animationend", stopShakeAnimation);
     divRef.current.classList.remove("shake-animation");
@@ -110,7 +123,7 @@ function App() {
   return (
     <div className="App">
       <header>
-        <Bar></Bar>
+        <Bar changeDate={changeDate}></Bar>
       </header>
       <main>
         <div className='background'></div>
@@ -154,7 +167,7 @@ function App() {
                 🎉 You won! 🎉
               </Typography>
               <Typography id="modal-modal-description" sx={{ mt: 2, textAlign: 'justify', fontWeight: 'bold', color: '#333' }}>
-                Congratulations! 🎉 You've successfully completed this level using only {words.length-1} words to bridge the start and the end. Your skill in weaving connections between words showcases your sharp wit and language mastery.
+                Congratulations! 🎉 You've successfully completed this level using only {words.length - 1} words to bridge the start and the end. Your skill in weaving connections between words showcases your sharp wit and language mastery.
               </Typography>
               <Typography id="modal-modal-description" sx={{ mt: 2, textAlign: 'justify', fontWeight: 'bold', color: '#333' }}>
 
