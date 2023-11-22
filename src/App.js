@@ -59,21 +59,39 @@ function App() {
 
   const [renderedWords, setRenderedWords] = useState(new Set());
 
+  const centerContainerRef = useRef(null);
+
+  // Estado para almacenar el ancho del dispositivo
+  const [deviceWidth, setDeviceWidth] = useState(window.innerWidth);
+
+  // Función para ajustar la altura
+  const setHeight = () => {
+    const heightVh = window.innerHeight * 0.06; // Calcula 6% de la altura de la ventana gráfica
+    const newHeight = window.innerHeight - heightVh*2; // Resta el 6% de la altura de la ventana gráfica
+    const newHeightPx = newHeight + "px";
+    if (centerContainerRef.current) centerContainerRef.current.style.minHeight = newHeightPx;
+  };
+
+  // Usar useEffect para añadir el event listener y para la lógica inicial
+  useEffect(() => {
+    const handleResize = () => {
+      setDeviceWidth(window.innerWidth);
+      if (deviceWidth <= 1920) {
+        setHeight();
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+    handleResize(); // Para establecer la altura inicial
+
+    // Limpieza del event listener
+    return () => window.removeEventListener('resize', handleResize);
+  }, [deviceWidth]);
+
   useEffect(() => {
     const newRenderedWords = new Set([...renderedWords, ...words]);
     setRenderedWords(newRenderedWords);
   }, [words]);
-
-
-  function ajustarAlturaContenedor() {
-    const alturaVisible = window.visualViewport.height;
-    const contenedor = document.getElementById('scroll-container');
-    contenedor.style.height = `${alturaVisible}px`;
-  }
-
-  // Ajustar al cargar y al cambiar el tamaño
-  window.addEventListener('load', ajustarAlturaContenedor);
-  window.addEventListener('resize', ajustarAlturaContenedor);
 
   const divRef = useRef(null);
   const InputPropsRef = useRef(null);
@@ -138,8 +156,8 @@ function App() {
       </header>
       <main>
         <div className='background'></div>
-        <div className='center-container'>
-          <div id={"scroll-container"} className='scroll-container'>
+        <div className='center-container' id={"center-container"}>
+          <div ref={centerContainerRef} id={"scroll-container"} className='scroll-container'>
             <WordContainer canWritte={false} inputValue={end} index={words.length + 2}></WordContainer>
             {gameOver && <Line ></Line>}
             {!gameOver &&
