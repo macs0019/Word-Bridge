@@ -191,7 +191,7 @@ function App() {
           }}
         >
           <Grow in={openWin} timeout={300}>
-            <Box sx={style}>
+            <Box className={"box-container"}>
               <Typography id="modal-modal-title" variant="h6" component="h2" sx={{ fontWeight: 'bold', color: '#333', textAlign: 'center' }}>
                 🎉 You won! 🎉
               </Typography>
