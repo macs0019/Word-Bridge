@@ -112,16 +112,19 @@ main {
 @media only screen and (max-width: 500px) {
   .center-container{
     width: 60%;
+    overflow: none;
   }
 }
 @media only screen and (max-width: 400px) {
   .center-container{
     width: 80%;
+    overflow: none;
   }
 }
 
 @media only screen and (max-width: 300px) {
   .center-container{
     width: 90%;
+    overflow: none;
   }
 }

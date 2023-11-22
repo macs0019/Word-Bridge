@@ -26,6 +26,7 @@ const style = {
     outline: 'none',
     p: 4,
     maxHeight: '70vh',
+    overflow: 'auto',
     background: "rgba(255, 255, 255, 0.8)",
     boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
     backdropFilter: "blur(5px)",
@@ -35,7 +36,9 @@ const style = {
     display: 'flex',
     flexDirection: 'column',
     gap: '1rem',
-    alignItems: 'center'
+    alignItems: 'center',
+    wordWrap: "break-word",
+    whiteSpace: "normal",
 };
 
 const Bar = ({ changeDate }) => {
@@ -88,22 +91,22 @@ const Bar = ({ changeDate }) => {
                 }}
             >
                 <Grow in={openHelp} timeout={300}>
-                    <Box sx={style}>
-                        <Typography id="modal-modal-title" variant="h6" component="h2" sx={{ fontWeight: 'bold', color: '#333' }}>
-                            🎮 How to play 🎮
-                        </Typography>
-                        <Typography id="modal-modal-description" sx={{ mt: 2, textAlign: 'justify', fontWeight: 'bold', color: '#333' }}>
-                            Welcome to "Word Bridge" 🎮, a unique word association challenge! The game displays two words: one at the bottom (⬇️) and another at the top (⬆️) of your screen. Your exciting task 🧠 is to connect these words by building a bridge of related words, moving from the bottom ⬇️ to the top ⬆️.
+                    <Box className={"box-container"}>
+                            <Typography id="modal-modal-title" variant="h6" component="h2" sx={{ fontWeight: 'bold', color: '#333' }}>
+                                🎮 How to play 🎮
+                            </Typography>
+                            <Typography id="modal-modal-description" sx={{ mt: 2, textAlign: 'justify', fontWeight: 'bold', color: '#333' }}>
+                                Welcome to "Word Bridge" 🎮, a unique word association challenge! The game displays two words: one at the bottom (⬇️) and another at the top (⬆️) of your screen. Your exciting task 🧠 is to connect these words by building a bridge of related words, moving from the bottom ⬇️ to the top ⬆️.
 
-                            Imagine the bottom word is "moon" 🌙 and the top word is "tide" 🌊. You might link them like "moon 🌙 → gravity 🛸 → ocean 🌊 → tide 🌊." Starting from the lower word, each connection in your chain should logically lead upwards ⬆️ to your destination word at the top.
+                                Imagine the bottom word is "moon" 🌙 and the top word is "tide" 🌊. You might link them like "moon 🌙 → gravity 🛸 → ocean 🌊 → tide 🌊." Starting from the lower word, each connection in your chain should logically lead upwards ⬆️ to your destination word at the top.
 
-                        </Typography>
-                        <Typography id="modal-modal-description" sx={{ mt: 2, textAlign: 'justify', fontWeight: 'bold', color: '#333' }}>
+                            </Typography>
+                            <Typography id="modal-modal-description" sx={{ mt: 2, textAlign: 'justify', fontWeight: 'bold', color: '#333' }}>
 
-                            This game 🎲 tests your vocabulary and creative thinking skills, challenging you to think outside the box 📦 and make clever connections. As you progress through levels, the puzzle becomes more intricate and thought-provoking, offering endless fun and mental stimulation.
+                                This game 🎲 tests your vocabulary and creative thinking skills, challenging you to think outside the box 📦 and make clever connections. As you progress through levels, the puzzle becomes more intricate and thought-provoking, offering endless fun and mental stimulation.
 
-                            "Word Bridge" 🌉 is perfect for puzzle enthusiasts, word game lovers, and anyone who enjoys a good brain teaser. Get ready to explore the amazing world of words and climb your way to the top! 🏆
-                        </Typography>
+                                "Word Bridge" 🌉 is perfect for puzzle enthusiasts, word game lovers, and anyone who enjoys a good brain teaser. Get ready to explore the amazing world of words and climb your way to the top! 🏆
+                            </Typography>
                     </Box>
                 </Grow>
             </Modal>
