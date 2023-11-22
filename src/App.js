@@ -89,7 +89,8 @@ function App() {
     setEnd(generate({ min: 1, max: 1, seed: (seed + 1).toString() })[0]);
     const newStart = generate({ min: 1, max: 1, seed: (seed).toString() })[0];
     setStart(newStart);
-    setWords(words => words.length > 0 ? [...words.slice(0, -1), newStart] : words);
+    setWords([newStart]);
+    setGameOver(false);
   }
 
 
