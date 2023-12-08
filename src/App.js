@@ -14,6 +14,7 @@ import Typography from '@mui/material/Typography';
 import { Height } from '@mui/icons-material';
 import { Grow } from '@mui/material';
 import generateDateList from './services/dateService';
+import { getSpanishWordFromSeed, getChineseWordFromSeed, getFrenchWordFromSeed, getGermanWordFromSeed, getItalianWordFromSeed } from './services/randomWords';
 
 const style = {
   position: 'absolute',
@@ -54,10 +55,17 @@ function App() {
   const [actualWord, setActualWord] = useState("");
   const [inputValue, setInputValue] = useState("");
   const [openWin, setopenWin] = useState(false);
+  const [playingDate, setPlayingDate] = useState("");
   const handleopenWin = () => setopenWin(true);
   const handleCloseHelp = () => setopenWin(false);
 
   const [renderedWords, setRenderedWords] = useState(new Set());
+  const [language, setLanguage] = useState("us");
+
+
+  useEffect(() => {
+    changeLanguage(language);
+  }, [language])
 
   const centerContainerRef = useRef(null);
 
@@ -67,7 +75,7 @@ function App() {
   // Función para ajustar la altura
   const setHeight = () => {
     const heightVh = window.innerHeight * 0.06; // Calcula 6% de la altura de la ventana gráfica
-    const newHeight = window.innerHeight - heightVh*2; // Resta el 6% de la altura de la ventana gráfica
+    const newHeight = window.innerHeight - heightVh * 2; // Resta el 6% de la altura de la ventana gráfica
     const newHeightPx = newHeight + "px";
     if (centerContainerRef.current) centerContainerRef.current.style.minHeight = newHeightPx;
   };
@@ -76,8 +84,10 @@ function App() {
   useEffect(() => {
     const handleResize = () => {
       setDeviceWidth(window.innerWidth);
-      if (deviceWidth <= 1920) {
+      if (deviceWidth <= 1800) {
         setHeight();
+      } else {
+        if (centerContainerRef.current) centerContainerRef.current.style.minHeight = '90vh';
       }
     };
 
@@ -114,11 +124,115 @@ function App() {
     const monthSeed = dt.getMonth() + 1;
     const yearSeed = dt.getFullYear();
     const seed = `${yearSeed}${monthSeed}${daySeed}`;
-    setEnd(generate({ min: 1, max: 1, seed: (seed + 1).toString() })[0]);
-    const newStart = generate({ min: 1, max: 1, seed: (seed).toString() })[0];
-    setStart(newStart);
-    setWords([newStart]);
+
+    switch (language) {
+      case "es":
+        setEnd(getSpanishWordFromSeed((seed + 1).toString()));
+        const newSpanishStart = getSpanishWordFromSeed((seed).toString());
+        console.log("Inicio: " + newSpanishStart)
+        setStart(newSpanishStart);
+        setWords([newSpanishStart]);
+        break;
+      case "cn":
+        setEnd(getChineseWordFromSeed((seed + 1).toString()));
+        const newChineseStart = getChineseWordFromSeed((seed).toString());
+        console.log("Inicio: " + newChineseStart)
+        setStart(newChineseStart);
+        setWords([newChineseStart]);
+        break;
+      case "de":
+        setEnd(getGermanWordFromSeed((seed + 1).toString()));
+        const newGermanStart = getGermanWordFromSeed((seed).toString());
+        console.log("Inicio: " + newGermanStart)
+        setStart(newGermanStart);
+        setWords([newGermanStart]);
+        break;
+      case "fr":
+        setEnd(getFrenchWordFromSeed((seed + 1).toString()));
+        const newFrenchStart = getFrenchWordFromSeed((seed).toString());
+        console.log("Inicio: " + newFrenchStart)
+        setStart(newFrenchStart);
+        setWords([newFrenchStart]);
+        break;
+      case "it":
+        setEnd(getItalianWordFromSeed((seed + 1).toString()));
+        const newItalianStart = getItalianWordFromSeed((seed).toString());
+        console.log("Inicio: " + newItalianStart)
+        setStart(newItalianStart);
+        setWords([newItalianStart]);
+        break;
+      case "us":
+        setEnd(generate({ min: 1, max: 1, seed: (seed + 1).toString() })[0]);
+        const newStart = generate({ min: 1, max: 1, seed: (seed).toString() })[0];
+        setStart(newStart);
+        setWords([newStart]);
+        break;
+      default:
+        break;
+    }
+    setPlayingDate(date);
     setGameOver(false);
+  }
+
+  function changeLanguage(language) {
+    let dt = "";
+    if (playingDate !== "") {
+      dt = new Date(playingDate);
+    } else {
+      dt = new Date();
+    }
+    const daySeed = dt.getDate();
+    const monthSeed = dt.getMonth() + 1;
+    const yearSeed = dt.getFullYear();
+    const seed = `${yearSeed}${monthSeed}${daySeed}`;
+
+    switch (language) {
+      case "es":
+        setEnd(getSpanishWordFromSeed((seed + 1).toString()));
+        const newSpanishStart = getSpanishWordFromSeed((seed).toString());
+        console.log("Inicio: " + newSpanishStart)
+        setStart(newSpanishStart);
+        setWords([newSpanishStart]);
+        break;
+      case "cn":
+        setEnd(getChineseWordFromSeed((seed + 1).toString()));
+        const newChineseStart = getChineseWordFromSeed((seed).toString());
+        console.log("Inicio: " + newChineseStart)
+        setStart(newChineseStart);
+        setWords([newChineseStart]);
+        break;
+      case "de":
+        setEnd(getGermanWordFromSeed((seed + 1).toString()));
+        const newGermanStart = getGermanWordFromSeed((seed).toString());
+        console.log("Inicio: " + newGermanStart)
+        setStart(newGermanStart);
+        setWords([newGermanStart]);
+        break;
+      case "fr":
+        setEnd(getFrenchWordFromSeed((seed + 1).toString()));
+        const newFrenchStart = getFrenchWordFromSeed((seed).toString());
+        console.log("Inicio: " + newFrenchStart)
+        setStart(newFrenchStart);
+        setWords([newFrenchStart]);
+        break;
+      case "it":
+        setEnd(getItalianWordFromSeed((seed + 1).toString()));
+        const newItalianStart = getItalianWordFromSeed((seed).toString());
+        console.log("Inicio: " + newItalianStart)
+        setStart(newItalianStart);
+        setWords([newItalianStart]);
+        break;
+      case "us":
+        setEnd(generate({ min: 1, max: 1, seed: (seed + 1).toString() })[0]);
+        const newStart = generate({ min: 1, max: 1, seed: (seed).toString() })[0];
+        setStart(newStart);
+        setWords([newStart]);
+        break;
+      default:
+        break;
+    }
+    setGameOver(false);
+
   }
 
 
@@ -130,11 +244,11 @@ function App() {
 
 
   const checkAnswer = (word) => {
-    similarity(words[0], word).then((result) => {
+    similarity(words[0], word, language).then((result) => {
       if (result > 0.090) {
         setWords([word, ...words]);
         setInputValue("");
-        similarity(end, word).then((result) => {
+        similarity(end, word, language).then((result) => {
           if (result > 0.15) {
             setWords([word, ...words]);
             setGameOver(true);
@@ -152,7 +266,7 @@ function App() {
   return (
     <div className="App">
       <header>
-        <Bar changeDate={changeDate}></Bar>
+        <Bar changeDate={changeDate} language={language} setLanguage={setLanguage}></Bar>
       </header>
       <main>
         <div className='background'></div>

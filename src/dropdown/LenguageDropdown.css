@@ -1,0 +1,80 @@
+.language-dropdown {
+    position: relative;
+    /* Establece la posición relativa al contenedor */
+    display: inline-block;
+}
+
+.language-dropdown button {
+    color: #333;
+    padding: 10px;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.language-dropdown ul {
+    position: absolute;
+    /* Posición absoluta para el dropdown */
+    list-style-type: none;
+    margin: 0;
+    width: 3rem;
+    padding: 0;
+    background-color: transparent;
+    /* Añadiendo sombra en la parte inferior */
+    /* From https://css.glass */
+    z-index: 1;
+    left: 0%;
+    /* Alinea el dropdown con el borde izquierdo del botón */
+    top: 110%;
+    /* Posiciona el dropdown justo debajo del botón */
+}
+
+.language-dropdown ul li {
+    padding: 10px;
+    cursor: pointer;
+}
+
+.flag-icon-drop:hover {
+    border-color: #3F826D !important;
+}
+
+.flag-emoji {
+    width: 1rem !important;
+}
+
+
+@keyframes escalarAUno {
+    from {
+        transform: scale(0);
+        /* Comienza con tamaño 0 */
+    }
+
+    to {
+        transform: scale(1);
+        /* Termina con tamaño original */
+    }
+}
+
+@keyframes escalarACero {
+    from {
+        transform: scale(1);
+        /* Comienza con tamaño original */
+    }
+
+    to {
+        transform: scale(0);
+        display: none;
+        pointer-events: none;
+        /* Termina con tamaño 0 */
+    }
+}
+
+.show {
+    animation: escalarAUno 0.1s ease-in-out forwards;
+    /* Animación para escalar de 0 a 1 */
+}
+
+.hide {
+    animation: escalarACero 0.1s ease-in-out forwards;
+    /* Animación para escalar de 1 a 0 */
+}
