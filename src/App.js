@@ -109,14 +109,30 @@ function App() {
   useLayoutEffect(() => {
     const divElement = document.getElementById("writting-container");
     divRef.current = divElement;
+    startPulseAnimation();
   }, [])
 
   function startShakeAnimation() {
     divRef.current.classList.add("shake-animation");
     divRef.current?.addEventListener("animationend", () => {
       stopShakeAnimation();
+      startPulseAnimation();
     });
   }
+  //Pulse animation
+  const startPulseAnimation = () => {
+    if (divRef.current) {
+      divRef.current.classList.add("pulse-animation");
+    }
+  };
+
+  const stopPulseAnimation = () => {
+    if (divRef.current) {
+      divRef.current.classList.remove("pulse-animation");
+    }
+  };
+
+
 
   function changeDate(date) {
     const dt = new Date(date);
@@ -127,49 +143,81 @@ function App() {
 
     switch (language) {
       case "es":
-        setEnd(getSpanishWordFromSeed((seed + 1).toString()));
-        const newSpanishStart = getSpanishWordFromSeed((seed).toString());
-        console.log("Inicio: " + newSpanishStart)
+        let newSpanishStart = getSpanishWordFromSeed(seed.toString());
+        let spanishEnd = getSpanishWordFromSeed((seed + 1).toString());
+        while (newSpanishStart === spanishEnd) {
+          seed++; // Increment seed to get a new word
+          spanishEnd = getSpanishWordFromSeed((seed + 1).toString());
+        }
+        setEnd(spanishEnd);
+        console.log("Inicio: " + newSpanishStart);
         setStart(newSpanishStart);
         setWords([newSpanishStart]);
         break;
       case "cn":
-        setEnd(getChineseWordFromSeed((seed + 1).toString()));
-        const newChineseStart = getChineseWordFromSeed((seed).toString());
-        console.log("Inicio: " + newChineseStart)
+        const newChineseStart = getChineseWordFromSeed(seed.toString());
+        let chineseEnd = getChineseWordFromSeed((seed + 1).toString());
+        while (newChineseStart === chineseEnd) {
+          seed++;
+          chineseEnd = getChineseWordFromSeed((seed + 1).toString());
+        }
+        setEnd(chineseEnd);
+        console.log("Inicio: " + newChineseStart);
         setStart(newChineseStart);
         setWords([newChineseStart]);
         break;
       case "de":
-        setEnd(getGermanWordFromSeed((seed + 1).toString()));
-        const newGermanStart = getGermanWordFromSeed((seed).toString());
-        console.log("Inicio: " + newGermanStart)
+        const newGermanStart = getGermanWordFromSeed(seed.toString());
+        let germanEnd = getGermanWordFromSeed((seed + 1).toString());
+        while (newGermanStart === germanEnd) {
+          seed++;
+          germanEnd = getGermanWordFromSeed((seed + 1).toString());
+        }
+        setEnd(germanEnd);
+        console.log("Inicio: " + newGermanStart);
         setStart(newGermanStart);
         setWords([newGermanStart]);
         break;
       case "fr":
-        setEnd(getFrenchWordFromSeed((seed + 1).toString()));
-        const newFrenchStart = getFrenchWordFromSeed((seed).toString());
-        console.log("Inicio: " + newFrenchStart)
+        const newFrenchStart = getFrenchWordFromSeed(seed.toString());
+        let frenchEnd = getFrenchWordFromSeed((seed + 1).toString());
+        while (newFrenchStart === frenchEnd) {
+          seed++;
+          frenchEnd = getFrenchWordFromSeed((seed + 1).toString());
+        }
+        setEnd(frenchEnd);
+        console.log("Inicio: " + newFrenchStart);
         setStart(newFrenchStart);
         setWords([newFrenchStart]);
         break;
       case "it":
-        setEnd(getItalianWordFromSeed((seed + 1).toString()));
-        const newItalianStart = getItalianWordFromSeed((seed).toString());
-        console.log("Inicio: " + newItalianStart)
+        const newItalianStart = getItalianWordFromSeed(seed.toString());
+        let italianEnd = getItalianWordFromSeed((seed + 1).toString());
+        while (newItalianStart === italianEnd) {
+          seed++;
+          italianEnd = getItalianWordFromSeed((seed + 1).toString());
+        }
+        setEnd(italianEnd);
+        console.log("Inicio: " + newItalianStart);
         setStart(newItalianStart);
         setWords([newItalianStart]);
         break;
       case "us":
-        setEnd(generate({ min: 1, max: 1, seed: (seed + 1).toString() })[0]);
-        const newStart = generate({ min: 1, max: 1, seed: (seed).toString() })[0];
+        const newStart = generate({ min: 1, max: 1, seed: seed.toString() })[0];
+        let usEnd = generate({ min: 1, max: 1, seed: (seed + 1).toString() })[0];
+        while (newStart === usEnd) {
+          seed++;
+          usEnd = generate({ min: 1, max: 1, seed: (seed + 1).toString() })[0];
+        }
+        setEnd(usEnd);
         setStart(newStart);
         setWords([newStart]);
         break;
       default:
         break;
     }
+
+
     setPlayingDate(date);
     setGameOver(false);
   }
@@ -245,21 +293,25 @@ function App() {
 
   const checkAnswer = (word) => {
     similarity(words[0], word, language).then((result) => {
-      if (result > 0.090) {
-        setWords([word, ...words]);
-        setInputValue("");
-        similarity(end, word, language).then((result) => {
-          if (result > 0.15) {
-            setWords([word, ...words]);
-            setGameOver(true);
-            setopenWin(true);
-          }
+      if (result !== undefined) {
+        if (result > 0.090) {
+          setWords([word, ...words]);
+          setInputValue("");
+          similarity(end, word, language).then((result) => {
+            if (result > 0.15) {
+              setWords([word, ...words]);
+              setGameOver(true);
+              setopenWin(true);
+            }
 
-        })
+          })
+        } else {
+          stopPulseAnimation();
+          startShakeAnimation();
+        }
       } else {
         startShakeAnimation();
       }
-
     })
   }
 
@@ -300,6 +352,7 @@ function App() {
               border: 'none !important',
               boxShadow: 'none !important',
               outline: 'none !important',
+              display: "none"
 
             }
           }}

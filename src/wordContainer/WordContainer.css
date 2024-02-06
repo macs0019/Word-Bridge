@@ -1,72 +1,104 @@
+@import url('https://fonts.googleapis.com/css?family=Baloo+2:400,800&display=swap');
+
+:root {
+    --color-background: #ece5ce;
+    /* Color de fondo general para el neumorfismo */
+    --color-shadow-dark: rgba(0, 0, 0, 0.2);
+    /* Sombra oscura para el efecto hundido */
+    --color-shadow-light: rgba(255, 255, 255, 0.7);
+    /* Sombra clara para el efecto elevado */
+    --color-text: #333;
+    /* Color del texto */
+    --color-input-background: var(--color-background);
+    /* Fondo del input */
+    --border-radius: 11px;
+    /* Radio del borde */
+}
+
 .word-box input {
     text-align: center !important;
     font-weight: bold;
+    font-family: 'Baloo 2', cursive;
+    color: var(--color-text);
+    background-color: var(--color-input-background);
+    padding: 20px;
+    border-radius: var(--border-radius);
+    border: none;
+    /*     caret-color: transparent; */
+    caret-color: #333;
 }
 
-.word-box div {
-    border: 3px solid #333;
-    border-radius: 'px';
-}
-
-.MuiFilledInput-underline::after {
-    border-bottom-color: #333 !important;
-    
-
+/* Eliminar estilos no deseados para limpieza */
+.word-box input::before,
+.MuiFilledInput-underline::after,
+.MuiFilledInput-underline::before {
+    display: none;
 }
 
 .MuiFilledInput {
     text-align: center !important;
 }
 
+/* Ajustes adicionales para mantener la consistencia y soportar animaciones */
+.word-box div {
+    border-radius: var(--border-radius);
+}
 
+/* Animación de temblor (shake) para retroalimentación */
 @keyframes shake {
-    0% {
+
+    0%,
+    100% {
         transform: translateX(0);
     }
 
     25% {
-        transform: translateX(-5px);
-        /* Mueve a la izquierda */
+        transform: translateX(-10px);
     }
 
     50% {
-        transform: translateX(5px);
-        /* Mueve a la derecha */
+        transform: translateX(10px);
     }
 
     75% {
-        transform: translateX(-5px);
-        /* Mueve a la izquierda */
-    }
-
-    100% {
-        transform: translateX(5px);
-        /* Mueve a la derecha */
+        transform: translateX(-10px);
     }
 }
 
 .shake-animation {
-    animation: shake 0.3s ease-in-out !important;
+    animation: shake 0.5s ease-in-out;
 }
 
-.color-change::after {
-    animation: color-change 0.3s linear !important;
-    transition: border-bottom-color 0.3s ease !important;
+/* Animación flotante para atractivo visual */
+/* @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+} */
+
+.word-box {
+    animation: float 5s ease-in-out infinite;
 }
 
-@keyframes color-change {
-    0% {
-        border-bottom-color: #333 !important;
-        /* Color inicial */
+.word-container {
+    position: relative;
+    display: inline-block;
+    /* O cualquier otro display que se ajuste a tu diseño */
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        transform: scale(1);
+        /* Estado inicial y final: el elemento está a su tamaño normal */
     }
 
     50% {
-        border-bottom-color: crimson !important;
-        /* Color intermedio */
+        transform: scale(1.05);
+        /* En el punto medio de la animación, el elemento crece un 5% */
     }
+}
 
-    100% {
-        border-bottom-color: #333 !important;
-        /* Color final (vuelve al original) */
-    }
+.pulse-animation {
+    animation: pulse 2s infinite ease-in-out;
 }

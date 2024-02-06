@@ -1,6 +1,8 @@
 .vertical-line {
-    width: 4px; /* Ancho de la línea vertical */
-    min-height: 2rem; /* Altura de la línea vertical (puede ajustarse según tus necesidades) */
-    background-color: #333; /* Color de la línea */
-    border-radius: 5px;
-  }
+  width: 3px; /* Mantiene el ancho definido */
+  min-height: 2rem; /* Ajusta la altura mínima según tus necesidades */
+  background-color: #ece5ce; /* Utiliza el color especificado, coherente con el esquema */
+  border-radius: 5px; /* Suaviza ligeramente las esquinas */
+  margin: 0 auto; /* Centra la línea verticalmente si es necesario */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2); /* Opcional: Añade una sombra sutil para profundidad */
+}
