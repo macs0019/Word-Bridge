@@ -297,23 +297,21 @@ function App() {
     divRef.current.classList.remove("shake-animation");
   }
 
-
-
   const checkAnswer = (word) => {
+    console.log(words.toString())
     similarity(words[0], word, language).then((result) => {
       if (result !== undefined) {
         if (result > 0.090) {
-          setInputValue("");
-          setNewKey(Math.random().toString(16));
           similarity(end, word, language).then((result) => {
             if (result > 0.15) {
               //setWords([word, ...words]);
-              setInputValue(word)
               setGameOver(true);
               setopenWin(true);
               stopPulseAnimation();
             } else {
               setWords([word, ...words]);
+              setInputValue("");
+              setNewKey(Math.random().toString(16));
             }
           })
 
@@ -324,6 +322,7 @@ function App() {
       } else {
         startShakeAnimation();
       }
+      
     })
   }
 
@@ -367,36 +366,7 @@ function App() {
             ))}
           </div>
         </div>
-        {/* <Modal
-          open={openWin}
-          onClose={handleCloseHelp}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
-          sx={{
-            '.MuiPaper-root': {
-              border: 'none !important',
-              boxShadow: 'none !important',
-              outline: 'none !important',
-              display: "none"
 
-            }
-          }}
-        >
-          <Grow in={openWin} timeout={300}>
-            <Box className={"box-container"}>
-              <Typography id="modal-modal-title" variant="h6" component="h2" sx={{ fontWeight: 'bold', color: '#333', textAlign: 'center' }}>
-                🎉 You won! 🎉
-              </Typography>
-              <Typography id="modal-modal-description" sx={{ mt: 2, textAlign: 'justify', fontWeight: 'bold', color: '#333' }}>
-                Congratulations! 🎉 You've successfully completed this level using only {words.length - 1} words to bridge the start and the end. Your skill in weaving connections between words showcases your sharp wit and language mastery.
-              </Typography>
-              <Typography id="modal-modal-description" sx={{ mt: 2, textAlign: 'justify', fontWeight: 'bold', color: '#333' }}>
-
-                But the fun doesn't stop here. We invite you to explore and challenge yourself with levels from previous days. Each one offers a unique set of words and challenges you to find new and creative paths through the vast world of vocabulary. Ready for more linguistic adventures? Dive into previous levels and see how far your ingenuity can take you! 🌉📚🚀
-              </Typography>
-            </Box>
-          </Grow>
-        </Modal> */}
         {openWin &&
           <Confetti
             key={confettiKey}
