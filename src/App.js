@@ -354,7 +354,7 @@ function App() {
 
             {words.map((word, index) => (
               <>
-                <div key={word} className={(word !== words[0]) && !gameOver ? "item" : "fadeIn"}>
+                <div key={word} className={(word !== words[0]) && gameOver ? "item" : "fadeIn"}>
                   <WordContainer id={word} key={index} inputValue={word} canWritte={false} index={index}></WordContainer>
                 </div>
                 {words.length !== 1 && index !== words.length - 1 && <Line
