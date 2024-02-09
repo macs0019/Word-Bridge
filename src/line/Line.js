@@ -1,9 +1,9 @@
 import './Line.css'
 
-const Line = () => {
-    return (<>
-        <div className='vertical-line item'></div>
-    </>)
+const Line = ({ code, newKey }) => {
+    return (
+        <div id={code} key={newKey} className={code === "line-0" || code === 'line-A' || code === "line-B" ? "animateLine vertical-line item" : "vertical-line item"}></div>
+    )
 }
 
 export default Line;

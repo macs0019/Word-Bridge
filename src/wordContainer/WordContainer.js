@@ -23,7 +23,9 @@ const WordContainer = ({ canWritte, word, checkAnswer, inputValue, setInputValue
 
     const playSound = () => {
         const audio = audioRef.current;
+        audio.currentTime = 0;
         audio.play().catch(error => console.error("Error playing the sound:", error));
+
     };
 
     const handleKeyPress = (event) => {

@@ -43,7 +43,7 @@ main {
   z-index: 0;
 }
 
-.hidding{
+.hidding {
   visibility: hidden;
 }
 
@@ -82,7 +82,7 @@ main {
 }
 
 .fadeIn {
-  animation: fadeInAnimation 1s;
+  animation: fadeInAnimation 0.5s linear;
 }
 
 @keyframes fadeInAnimation {
@@ -94,6 +94,16 @@ main {
     opacity: 1;
   }
 }
+/* 
+@keyframes fadeInAnimation {
+  from {
+    transform: scale(0.3);
+  }
+
+  to {
+    transform: scale(1);
+  }
+} */
 
 .item {
   transition: all 1s ease;

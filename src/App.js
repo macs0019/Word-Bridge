@@ -13,8 +13,10 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { Height } from '@mui/icons-material';
 import { Grow } from '@mui/material';
+import { v4 as uuidv4 } from 'uuid';
 import generateDateList from './services/dateService';
 import { getSpanishWordFromSeed, getChineseWordFromSeed, getFrenchWordFromSeed, getGermanWordFromSeed, getItalianWordFromSeed } from './services/randomWords';
+import Confetti from 'react-confetti'
 
 const style = {
   position: 'absolute',
@@ -58,13 +60,16 @@ function App() {
   const [playingDate, setPlayingDate] = useState("");
   const handleopenWin = () => setopenWin(true);
   const handleCloseHelp = () => setopenWin(false);
+  const [confettiKey, setConfettiKey] = useState(0); // Una clave para forzar el remontaje
 
   const [renderedWords, setRenderedWords] = useState(new Set());
   const [language, setLanguage] = useState("us");
 
+  const [newKey, setNewKey] = useState("")
 
   useEffect(() => {
     changeLanguage(language);
+    setInputValue("");
   }, [language])
 
   const centerContainerRef = useRef(null);
@@ -79,6 +84,13 @@ function App() {
     const newHeightPx = newHeight + "px";
     if (centerContainerRef.current) centerContainerRef.current.style.minHeight = newHeightPx;
   };
+
+  useEffect(() => {
+    if (gameOver) {
+      // Cambia la clave cada vez que gameOver se convierte en true
+      setConfettiKey(prevKey => prevKey + 1);
+    }
+  }, [gameOver]);
 
   // Usar useEffect para añadir el event listener y para la lógica inicial
   useEffect(() => {
@@ -110,7 +122,9 @@ function App() {
     const divElement = document.getElementById("writting-container");
     divRef.current = divElement;
     startPulseAnimation();
-  }, [])
+    setInputValue("");
+    setGameOver(false)
+  }, [playingDate])
 
   function startShakeAnimation() {
     divRef.current.classList.add("shake-animation");
@@ -132,14 +146,12 @@ function App() {
     }
   };
 
-
-
   function changeDate(date) {
     const dt = new Date(date);
     const daySeed = dt.getDate();
     const monthSeed = dt.getMonth() + 1;
     const yearSeed = dt.getFullYear();
-    const seed = `${yearSeed}${monthSeed}${daySeed}`;
+    let seed = `${yearSeed}${monthSeed}${daySeed}`;
 
     switch (language) {
       case "es":
@@ -216,10 +228,8 @@ function App() {
       default:
         break;
     }
-
-
-    setPlayingDate(date);
     setGameOver(false);
+    setPlayingDate(date);
   }
 
   function changeLanguage(language) {
@@ -279,8 +289,6 @@ function App() {
       default:
         break;
     }
-    setGameOver(false);
-
   }
 
 
@@ -295,16 +303,20 @@ function App() {
     similarity(words[0], word, language).then((result) => {
       if (result !== undefined) {
         if (result > 0.090) {
-          setWords([word, ...words]);
           setInputValue("");
+          setNewKey(Math.random().toString(16));
           similarity(end, word, language).then((result) => {
             if (result > 0.15) {
-              setWords([word, ...words]);
+              //setWords([word, ...words]);
+              setInputValue(word)
               setGameOver(true);
               setopenWin(true);
+              stopPulseAnimation();
+            } else {
+              setWords([word, ...words]);
             }
-
           })
+
         } else {
           stopPulseAnimation();
           startShakeAnimation();
@@ -324,25 +336,38 @@ function App() {
         <div className='background'></div>
         <div className='center-container' id={"center-container"}>
           <div ref={centerContainerRef} id={"scroll-container"} className='scroll-container'>
+
             <WordContainer canWritte={false} inputValue={end} index={words.length + 2}></WordContainer>
-            {gameOver && <Line ></Line>}
-            {!gameOver &&
-              <div id="writting-container" className=''>
-                <WordContainer index={-1} canWritte={true} word={actualWord} checkAnswer={checkAnswer} inputValue={inputValue} setInputValue={setInputValue}></WordContainer>
-              </div>
-            }
+
+            {gameOver && <Line Line
+              code={`line-${"A"}`}
+              key={`line-${"A"}`}
+              newKey={newKey + 1}></Line>}
+
+            <div id="writting-container" className=''>
+              <WordContainer index={-1} canWritte={!gameOver} word={actualWord} checkAnswer={checkAnswer} inputValue={inputValue} setInputValue={setInputValue}></WordContainer>
+            </div>
+
+            {words.length !== 1 && gameOver && <Line Line
+              code={`line-${"B"}`}
+              key={`line-${"B"}`}
+              newKey={newKey + 1}></Line>}
 
             {words.map((word, index) => (
               <>
-                <div key={word} className={word !== words[0] ? "item" : "fadeIn"}>
+                <div key={word} className={(word !== words[0]) && !gameOver ? "item" : "fadeIn"}>
                   <WordContainer id={word} key={index} inputValue={word} canWritte={false} index={index}></WordContainer>
                 </div>
-                {words.length !== 1 && index !== words.length - 1 && <Line key={index}></Line>}
+                {words.length !== 1 && index !== words.length - 1 && <Line
+                  code={`line-${index}`}
+                  key={`line-${index}`}
+                  newKey={newKey}
+                />}
               </>
             ))}
           </div>
         </div>
-        <Modal
+        {/* <Modal
           open={openWin}
           onClose={handleCloseHelp}
           aria-labelledby="modal-modal-title"
@@ -371,7 +396,15 @@ function App() {
               </Typography>
             </Box>
           </Grow>
-        </Modal>
+        </Modal> */}
+        {openWin &&
+          <Confetti
+            key={confettiKey}
+            width={window.innerWidth}
+            height={window.innerHeight}
+            tweenDuration={3000}
+            recycle={false}
+          />}
       </main>
     </div>
   );
