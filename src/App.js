@@ -14,9 +14,10 @@ import Typography from '@mui/material/Typography';
 import { Height } from '@mui/icons-material';
 import { Grow } from '@mui/material';
 import { v4 as uuidv4 } from 'uuid';
-import generateDateList from './services/dateService';
 import { getSpanishWordFromSeed, getChineseWordFromSeed, getFrenchWordFromSeed, getGermanWordFromSeed, getItalianWordFromSeed } from './services/randomWords';
 import Confetti from 'react-confetti'
+import useWindowSize from './hooks/useWindowSize';
+import { changeDate } from './services/dateService';
 
 const style = {
   position: 'absolute',
@@ -65,6 +66,11 @@ function App() {
   const [renderedWords, setRenderedWords] = useState(new Set());
   const [language, setLanguage] = useState("us");
 
+  //Ajustar tamaño de la ventana
+  const centerContainerRef = useRef(null);
+  useWindowSize(centerContainerRef);
+
+  //Refrescar key de la primera barra
   const [newKey, setNewKey] = useState("")
 
   useEffect(() => {
@@ -72,18 +78,6 @@ function App() {
     setInputValue("");
   }, [language])
 
-  const centerContainerRef = useRef(null);
-
-  // Estado para almacenar el ancho del dispositivo
-  const [deviceWidth, setDeviceWidth] = useState(window.innerWidth);
-
-  // Función para ajustar la altura
-  const setHeight = () => {
-    const heightVh = window.innerHeight * 0.06; // Calcula 6% de la altura de la ventana gráfica
-    const newHeight = window.innerHeight - heightVh * 2; // Resta el 6% de la altura de la ventana gráfica
-    const newHeightPx = newHeight + "px";
-    if (centerContainerRef.current) centerContainerRef.current.style.minHeight = newHeightPx;
-  };
 
   useEffect(() => {
     if (gameOver) {
@@ -92,23 +86,6 @@ function App() {
     }
   }, [gameOver]);
 
-  // Usar useEffect para añadir el event listener y para la lógica inicial
-  useEffect(() => {
-    const handleResize = () => {
-      setDeviceWidth(window.innerWidth);
-      if (deviceWidth <= 1800) {
-        setHeight();
-      } else {
-        if (centerContainerRef.current) centerContainerRef.current.style.minHeight = '90vh';
-      }
-    };
-
-    window.addEventListener('resize', handleResize);
-    handleResize(); // Para establecer la altura inicial
-
-    // Limpieza del event listener
-    return () => window.removeEventListener('resize', handleResize);
-  }, [deviceWidth]);
 
   useEffect(() => {
     const newRenderedWords = new Set([...renderedWords, ...words]);
@@ -145,92 +122,6 @@ function App() {
       divRef.current.classList.remove("pulse-animation");
     }
   };
-
-  function changeDate(date) {
-    const dt = new Date(date);
-    const daySeed = dt.getDate();
-    const monthSeed = dt.getMonth() + 1;
-    const yearSeed = dt.getFullYear();
-    let seed = `${yearSeed}${monthSeed}${daySeed}`;
-
-    switch (language) {
-      case "es":
-        let newSpanishStart = getSpanishWordFromSeed(seed.toString());
-        let spanishEnd = getSpanishWordFromSeed((seed + 1).toString());
-        while (newSpanishStart === spanishEnd) {
-          seed++; // Increment seed to get a new word
-          spanishEnd = getSpanishWordFromSeed((seed + 1).toString());
-        }
-        setEnd(spanishEnd);
-        console.log("Inicio: " + newSpanishStart);
-        setStart(newSpanishStart);
-        setWords([newSpanishStart]);
-        break;
-      case "cn":
-        const newChineseStart = getChineseWordFromSeed(seed.toString());
-        let chineseEnd = getChineseWordFromSeed((seed + 1).toString());
-        while (newChineseStart === chineseEnd) {
-          seed++;
-          chineseEnd = getChineseWordFromSeed((seed + 1).toString());
-        }
-        setEnd(chineseEnd);
-        console.log("Inicio: " + newChineseStart);
-        setStart(newChineseStart);
-        setWords([newChineseStart]);
-        break;
-      case "de":
-        const newGermanStart = getGermanWordFromSeed(seed.toString());
-        let germanEnd = getGermanWordFromSeed((seed + 1).toString());
-        while (newGermanStart === germanEnd) {
-          seed++;
-          germanEnd = getGermanWordFromSeed((seed + 1).toString());
-        }
-        setEnd(germanEnd);
-        console.log("Inicio: " + newGermanStart);
-        setStart(newGermanStart);
-        setWords([newGermanStart]);
-        break;
-      case "fr":
-        const newFrenchStart = getFrenchWordFromSeed(seed.toString());
-        let frenchEnd = getFrenchWordFromSeed((seed + 1).toString());
-        while (newFrenchStart === frenchEnd) {
-          seed++;
-          frenchEnd = getFrenchWordFromSeed((seed + 1).toString());
-        }
-        setEnd(frenchEnd);
-        console.log("Inicio: " + newFrenchStart);
-        setStart(newFrenchStart);
-        setWords([newFrenchStart]);
-        break;
-      case "it":
-        const newItalianStart = getItalianWordFromSeed(seed.toString());
-        let italianEnd = getItalianWordFromSeed((seed + 1).toString());
-        while (newItalianStart === italianEnd) {
-          seed++;
-          italianEnd = getItalianWordFromSeed((seed + 1).toString());
-        }
-        setEnd(italianEnd);
-        console.log("Inicio: " + newItalianStart);
-        setStart(newItalianStart);
-        setWords([newItalianStart]);
-        break;
-      case "us":
-        const newStart = generate({ min: 1, max: 1, seed: seed.toString() })[0];
-        let usEnd = generate({ min: 1, max: 1, seed: (seed + 1).toString() })[0];
-        while (newStart === usEnd) {
-          seed++;
-          usEnd = generate({ min: 1, max: 1, seed: (seed + 1).toString() })[0];
-        }
-        setEnd(usEnd);
-        setStart(newStart);
-        setWords([newStart]);
-        break;
-      default:
-        break;
-    }
-    setGameOver(false);
-    setPlayingDate(date);
-  }
 
   function changeLanguage(language) {
     let dt = "";
@@ -329,7 +220,7 @@ function App() {
   return (
     <div className="App">
       <header>
-        <Bar changeDate={changeDate} language={language} setLanguage={setLanguage}></Bar>
+        <Bar changeDate={changeDate} language={language} setLanguage={setLanguage} setPlayingDate={setPlayingDate} getSpanishWordFromSeed={getSpanishWordFromSeed} setEnd={setEnd} setStart={setStart} setWords={setWords}></Bar>
       </header>
       <main>
         <div className='background'></div>

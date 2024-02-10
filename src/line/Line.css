@@ -11,8 +11,10 @@
   from {
     height: 0rem;
   }
+
   to {
     height: 2rem;
+    min-height: 2rem !important;
   }
 }
 

@@ -10,14 +10,14 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { Height } from '@mui/icons-material';
 import { Grow } from '@mui/material';
-import generateDateList from '../services/dateService';
+import { generateDateList } from '../services/dateService';
 import { useEffect } from 'react';
 import { Grid } from '@mui/material';
 import NativeSelect from '@mui/material';
 import FormControl from '@mui/material';
 import LanguageDropdown from '../dropdown/LenguageDropdown';
 
-const Bar = ({ changeDate, language, setLanguage }) => {
+const Bar = ({ changeDate, language, setLanguage, setEnd, setWords, setStart, getSpanishWordFromSeed, setPlayingDate }) => {
 
     const [openHelp, setOpenHelp] = useState(false);
     const handleOpenHelp = () => setOpenHelp(true);
@@ -26,12 +26,12 @@ const Bar = ({ changeDate, language, setLanguage }) => {
     const [openCalendar, setOpenCalendar] = useState(false);
     const handleOpenCalendar = () => setOpenCalendar(true);
     const handleCloseCalendar = () => setOpenCalendar(false);
- 
+
 
     const [dateList, setDateList] = useState([]);
 
     const changeDay = (date) => {
-        changeDate(date);
+        changeDate(date, language, setEnd, setWords, setStart, getSpanishWordFromSeed, setPlayingDate);
         handleCloseCalendar(true);
     }
 
@@ -49,7 +49,7 @@ const Bar = ({ changeDate, language, setLanguage }) => {
     return (
         <>
             <div className="bar-container">
-                <div style={{width: '3rem'}}></div>
+                <div style={{ width: '3rem' }}></div>
                 <HelpOutlineIcon onClick={handleOpenHelp} className='icon' />
                 <h2>Word Bridge</h2>
                 <CalendarMonthIcon onClick={handleOpenCalendar} className='icon' />
