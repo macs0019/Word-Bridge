@@ -14,57 +14,28 @@ import Typography from '@mui/material/Typography';
 import { Height } from '@mui/icons-material';
 import { Grow } from '@mui/material';
 import { v4 as uuidv4 } from 'uuid';
-import { getSpanishWordFromSeed, getChineseWordFromSeed, getFrenchWordFromSeed, getGermanWordFromSeed, getItalianWordFromSeed } from './services/randomWords';
 import Confetti from 'react-confetti'
 import useWindowSize from './hooks/useWindowSize';
 import { changeDate } from './services/dateService';
-
-const style = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%) !important',
-  width: '40vw',
-  bgcolor: '#f3f3f3',
-  boxShadow: 24,
-  border: 'none',
-  outline: 'none',
-  p: 4,
-  maxHeight: '70vh',
-  background: "rgba(255, 255, 255, 0.8)",
-  boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
-  backdropFilter: "blur(5px)",
-  webkitBackdropFilter: "blur(5px)",
-  boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.15)",
-  borderRadius: '20px',
-  display: 'flex',
-  justifyContent: 'center',
-  flexDirection: 'column'
-};
+import { getWordFromSeed } from './services/randomWords'
+import { changeLanguage } from './services/languageService';
+import { startShakeAnimation, stopPulseAnimation, stopShakeAnimation, startPulseAnimation } from './services/animationService'
 
 function App() {
 
-  const today = new Date();
-  const day = today.getDate();
-  const month = today.getMonth() + 1;
-  const year = today.getFullYear();
-  const newSeed = `${year}${month}${day}`;
-
-
-  const [start, setStart] = useState(generate({ min: 1, max: 1, seed: (newSeed).toString() })[0]);
-  const [end, setEnd] = useState(generate({ min: 1, max: 1, seed: (newSeed + 1).toString() })[0]);
+  const [start, setStart] = useState("");
+  const [end, setEnd] = useState("");
   const [words, setWords] = useState([start]);
   const [gameOver, setGameOver] = useState(false);
-  const [actualWord, setActualWord] = useState("");
   const [inputValue, setInputValue] = useState("");
   const [openWin, setopenWin] = useState(false);
   const [playingDate, setPlayingDate] = useState("");
-  const handleopenWin = () => setopenWin(true);
-  const handleCloseHelp = () => setopenWin(false);
   const [confettiKey, setConfettiKey] = useState(0); // Una clave para forzar el remontaje
 
   const [renderedWords, setRenderedWords] = useState(new Set());
   const [language, setLanguage] = useState("us");
+
+  const divRef = useRef(null);
 
   //Ajustar tamaño de la ventana
   const centerContainerRef = useRef(null);
@@ -74,7 +45,7 @@ function App() {
   const [newKey, setNewKey] = useState("")
 
   useEffect(() => {
-    changeLanguage(language);
+    changeLanguage(language, playingDate, getWordFromSeed, setStart, setEnd, setWords);
     setInputValue("");
   }, [language])
 
@@ -92,104 +63,16 @@ function App() {
     setRenderedWords(newRenderedWords);
   }, [words]);
 
-  const divRef = useRef(null);
-  const InputPropsRef = useRef(null);
 
   useLayoutEffect(() => {
     const divElement = document.getElementById("writting-container");
     divRef.current = divElement;
-    startPulseAnimation();
+    startPulseAnimation(divRef);
     setInputValue("");
     setGameOver(false)
   }, [playingDate])
 
-  function startShakeAnimation() {
-    divRef.current.classList.add("shake-animation");
-    divRef.current?.addEventListener("animationend", () => {
-      stopShakeAnimation();
-      startPulseAnimation();
-    });
-  }
-  //Pulse animation
-  const startPulseAnimation = () => {
-    if (divRef.current) {
-      divRef.current.classList.add("pulse-animation");
-    }
-  };
-
-  const stopPulseAnimation = () => {
-    if (divRef.current) {
-      divRef.current.classList.remove("pulse-animation");
-    }
-  };
-
-  function changeLanguage(language) {
-    let dt = "";
-    if (playingDate !== "") {
-      dt = new Date(playingDate);
-    } else {
-      dt = new Date();
-    }
-    const daySeed = dt.getDate();
-    const monthSeed = dt.getMonth() + 1;
-    const yearSeed = dt.getFullYear();
-    const seed = `${yearSeed}${monthSeed}${daySeed}`;
-
-    switch (language) {
-      case "es":
-        setEnd(getSpanishWordFromSeed((seed + 1).toString()));
-        const newSpanishStart = getSpanishWordFromSeed((seed).toString());
-        console.log("Inicio: " + newSpanishStart)
-        setStart(newSpanishStart);
-        setWords([newSpanishStart]);
-        break;
-      case "cn":
-        setEnd(getChineseWordFromSeed((seed + 1).toString()));
-        const newChineseStart = getChineseWordFromSeed((seed).toString());
-        console.log("Inicio: " + newChineseStart)
-        setStart(newChineseStart);
-        setWords([newChineseStart]);
-        break;
-      case "de":
-        setEnd(getGermanWordFromSeed((seed + 1).toString()));
-        const newGermanStart = getGermanWordFromSeed((seed).toString());
-        console.log("Inicio: " + newGermanStart)
-        setStart(newGermanStart);
-        setWords([newGermanStart]);
-        break;
-      case "fr":
-        setEnd(getFrenchWordFromSeed((seed + 1).toString()));
-        const newFrenchStart = getFrenchWordFromSeed((seed).toString());
-        console.log("Inicio: " + newFrenchStart)
-        setStart(newFrenchStart);
-        setWords([newFrenchStart]);
-        break;
-      case "it":
-        setEnd(getItalianWordFromSeed((seed + 1).toString()));
-        const newItalianStart = getItalianWordFromSeed((seed).toString());
-        console.log("Inicio: " + newItalianStart)
-        setStart(newItalianStart);
-        setWords([newItalianStart]);
-        break;
-      case "us":
-        setEnd(generate({ min: 1, max: 1, seed: (seed + 1).toString() })[0]);
-        const newStart = generate({ min: 1, max: 1, seed: (seed).toString() })[0];
-        setStart(newStart);
-        setWords([newStart]);
-        break;
-      default:
-        break;
-    }
-  }
-
-
-  function stopShakeAnimation() {
-    divRef.current.removeEventListener("animationend", stopShakeAnimation);
-    divRef.current.classList.remove("shake-animation");
-  }
-
   const checkAnswer = (word) => {
-    console.log(words.toString())
     similarity(words[0], word, language).then((result) => {
       if (result !== undefined) {
         if (result > 0.090) {
@@ -198,20 +81,19 @@ function App() {
               //setWords([word, ...words]);
               setGameOver(true);
               setopenWin(true);
-              stopPulseAnimation();
+              stopPulseAnimation(divRef);
             } else {
               setWords([word, ...words]);
               setInputValue("");
               setNewKey(Math.random().toString(16));
             }
           })
-
         } else {
-          stopPulseAnimation();
-          startShakeAnimation();
+          stopPulseAnimation(divRef);
+          startShakeAnimation(divRef);
         }
       } else {
-        startShakeAnimation();
+        startShakeAnimation(divRef);
       }
 
     })
@@ -220,7 +102,7 @@ function App() {
   return (
     <div className="App">
       <header>
-        <Bar changeDate={changeDate} language={language} setLanguage={setLanguage} setPlayingDate={setPlayingDate} getSpanishWordFromSeed={getSpanishWordFromSeed} setEnd={setEnd} setStart={setStart} setWords={setWords}></Bar>
+        <Bar changeDate={changeDate} language={language} setLanguage={setLanguage} getWordFromSeed={getWordFromSeed} setPlayingDate={setPlayingDate} setEnd={setEnd} setStart={setStart} setWords={setWords}></Bar>
       </header>
       <main>
         <div className='background'></div>
@@ -235,7 +117,7 @@ function App() {
               newKey={newKey + 1}></Line>}
 
             <div id="writting-container" className=''>
-              <WordContainer index={-1} canWritte={!gameOver} word={actualWord} checkAnswer={checkAnswer} inputValue={inputValue} setInputValue={setInputValue}></WordContainer>
+              <WordContainer index={-1} canWritte={!gameOver} checkAnswer={checkAnswer} inputValue={inputValue} setInputValue={setInputValue}></WordContainer>
             </div>
 
             {gameOver && <Line Line

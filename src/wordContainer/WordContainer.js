@@ -3,7 +3,7 @@ import { TextField } from '@mui/material';
 import './WordContainer.css';
 import typingSound from '../audio/typing.mp3'; // Importa el archivo de sonido
 
-const WordContainer = ({ canWritte, word, checkAnswer, inputValue, setInputValue, index }) => {
+const WordContainer = ({ canWritte, checkAnswer, inputValue, setInputValue }) => {
     // Crea una referencia al objeto de audio usando el archivo importado
     const audioRef = useRef(new Audio(typingSound));
 

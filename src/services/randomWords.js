@@ -149,7 +149,7 @@ var wordListGerman = [
     'Vitalität', 'Lebhaftigkeit', 'Lebendigkeit', 'Wille', 'Erfolg', 'letzte', 'einzigartig'
 ];
 
-var wordListItalian= [
+var wordListItalian = [
     "uno", "giù", "abbandonare", "aprire", "assoluto", "nonno", "terminare", "forse", "azioni", "accettare",
     "avvicinarsi", "accompagnare", "accordo", "atteggiamento", "attività", "atto", "attuale", "agire", "accordo", "prima",
 
@@ -251,6 +251,65 @@ var wordListFrench = [
     "vitalité", "vivacité", "volonté", "succès", "unique"
 ];
 
+var wordListEnglish = [
+    "one", "down", "abandon", "open", "absolute", "grandfather", "finish", "maybe", "actions", "accept",
+    "approach", "accompany", "agreement", "attitude", "activity", "act", "actual", "act", "before",
+
+    "also", "acquire", "warn", "influence", "affirm", "water", "now", "there", "air", "all",
+    "achieve", "away", "german", "something", "someone", "some", "soul",
+
+    "high", "tall", "height", "love", "both", "american", "friend", "love", "wide", "walk",
+    "animal", "ancient", "announce", "analysis", "appear", "barely", "apply",
+
+    "support", "learn", "enjoy", "that", "here", "weapon", "art", "ensure", "aspect",
+    "affair", "thus", "cautions", "attention", "dare", "back", "increase", "even", "although", "author",
+
+    "author", "authority", "authentic", "advance", "yesterday", "aid", "help", "blue", "year", "again",
+    "descend", "district", "base", "enough", "suffice", "drink", "good", "white", "mouth", "arm",
+
+    "good", "search", "horse", "head", "each", "chain", "fall", "street", "bed", "change",
+    "change", "walk", "path", "sky", "complete", "buy", "understand", "check", "common", "communications",
+
+    "common", "with", "concept", "consciousness", "concrete", "condition", "together", "know", "knowledge", "consequence",
+    "obtain", "keep", "consider", "consist", "constant", "constitute", "construct", "contact", "count", "contemplate",
+
+    "contain", "answer", "continue", "against", "contrary", "control", "conversation", "convert", "heart", "run",
+    "correspond", "current", "cut", "thing", "birch", "saying", "affinity", "avenue", "chestnut", "dawn",
+
+    "pelican", "joy", "noise", "alchemy", "fusion", "poppy", "ambition", "anemone", "host", "desire",
+    "antidote", "apogee", "mystery", "cunning", "archetype", "twilight", "lullaby", "ambition", "dawn", "adventure",
+
+    "orange blossom", "rhododendron", "fortress", "bamboo", "basalt", "beauty", "benevolence", "benevolent", "brown", "bizarre",
+    "bohemian", "bohemian", "bravery", "breeze", "bucolic", "vault", "cadence", "heat", "candor", "mahogany",
+
+    "whim", "caress", "carpe diem", "catastrophe", "zenith", "proximity", "spark", "climax", "coexistence", "colossal",
+    "compassion", "concord", "confidentiality", "fire", "connivance", "consternation", "accomplishment", "courage", "crown", "twilight",
+
+    "chromatism", "dance", "delight", "delirium", "awakening", "detach", "destiny", "devotion", "happiness", "gentleness",
+    "boiling", "ecstasy", "effervescence", "ephemeral", "elegance", "charm", "enigma", "epic", "era", "balance",
+
+    "eroticism", "spirit", "splendor", "explosion", "aesthetic", "euphoria", "escape", "exquisite", "fascination", "bliss",
+    "fervent", "festivities", "fidelity", "flower", "glow", "fusion", "genius", "authentic", "globe", "grace",
+
+    "gratitude", "harmony", "spell", "hurricane", "idyll", "illuminate", "imagination", "impulse", "incandescence", "independence",
+    "ineffable", "infinite", "immutable", "intense", "garden", "luminous", "majestic", "wonder", "melody", "mystery",
+
+    "nature", "nostalgia", "dark", "opportunity", "optimism", "origin", "peace", "fullness", "poetry", "purity",
+    "chimera", "glow", "wealth", "romance", "serenity", "dream", "supremacy", "tenderness", "treasure", "last",
+
+    "union", "universal", "utopia", "valor", "evening", "adventure", "life", "vigor", "virtue", "vision",
+    "vitality", "vivacity", "will", "success", "unique"
+];
+
+
+const wordLists = {
+    es: wordListSpanish,
+    fr: wordListFrench,
+    it: wordListItalian,
+    cn: wordListChinese,
+    de: wordListGerman,
+    us: wordListEnglish,
+};
 
 const hashString = (str) => {
     let hash = 0;
@@ -261,28 +320,12 @@ const hashString = (str) => {
     return hash;
 };
 
-export const getSpanishWordFromSeed = (seed) => {
-    const index = Math.abs(hashString(seed)) % wordListSpanish.length;
-    return wordListSpanish[index];
-};
-
-
-export const getFrenchWordFromSeed = (seed) => {
-    const index = Math.abs(hashString(seed)) % wordListFrench.length;
-    return wordListFrench[index];
-};
-
-export const getItalianWordFromSeed = (seed) => {
-    const index = Math.abs(hashString(seed)) % wordListItalian.length;
-    return wordListItalian[index];
-};
-
-export const getChineseWordFromSeed = (seed) => {
-    const index = Math.abs(hashString(seed)) % wordListChinese.length;
-    return wordListChinese[index];
-};
-
-export const getGermanWordFromSeed = (seed) => {
-    const index = Math.abs(hashString(seed)) % wordListGerman.length;
-    return wordListGerman[index];
+export function getWordFromSeed(seed, language) {
+    const wordList = wordLists[language];
+    if (!wordList) {
+        console.error(`Word list for language "${language}" not found.`);
+        return null;
+    }
+    const index = Math.abs(hashString(seed)) % wordList.length;
+    return wordList[index];
 };

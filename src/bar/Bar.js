@@ -16,8 +16,9 @@ import { Grid } from '@mui/material';
 import NativeSelect from '@mui/material';
 import FormControl from '@mui/material';
 import LanguageDropdown from '../dropdown/LenguageDropdown';
+import { getWordFromSeed } from '../services/randomWords';
 
-const Bar = ({ changeDate, language, setLanguage, setEnd, setWords, setStart, getSpanishWordFromSeed, setPlayingDate }) => {
+const Bar = ({ changeDate, language, setLanguage, setEnd, setWords, setStart, getWordFromSeed, setPlayingDate }) => {
 
     const [openHelp, setOpenHelp] = useState(false);
     const handleOpenHelp = () => setOpenHelp(true);
@@ -31,7 +32,7 @@ const Bar = ({ changeDate, language, setLanguage, setEnd, setWords, setStart, ge
     const [dateList, setDateList] = useState([]);
 
     const changeDay = (date) => {
-        changeDate(date, language, setEnd, setWords, setStart, getSpanishWordFromSeed, setPlayingDate);
+        changeDate(date, language, setEnd, setWords, setStart, getWordFromSeed, setPlayingDate);
         handleCloseCalendar(true);
     }
 
