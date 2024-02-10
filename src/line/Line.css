@@ -7,14 +7,19 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
+.min-height {
+  min-height: 2rem;
+}
+
 @keyframes lineAnimation {
   from {
     height: 0rem;
+    min-height: 0;
   }
 
   to {
     height: 2rem;
-    min-height: 2rem !important;
+    min-height: 2rem;
   }
 }
 

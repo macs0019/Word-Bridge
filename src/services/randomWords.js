@@ -252,54 +252,55 @@ var wordListFrench = [
 ];
 
 var wordListEnglish = [
-    "one", "down", "abandon", "open", "absolute", "grandfather", "finish", "maybe", "actions", "accept",
-    "approach", "accompany", "agreement", "attitude", "activity", "act", "actual", "act", "before",
+    "to", "down", "abandon", "open", "absolute", "grandfather", "finish", "maybe", "actions", "accept",
+    "approach", "accompany", "agree", "attitude", "activity", "act", "current", "act", "agreement", "forward",
 
-    "also", "acquire", "warn", "influence", "affirm", "water", "now", "there", "air", "all",
-    "achieve", "away", "german", "something", "someone", "some", "soul",
+    "also", "acquire", "warn", "affect", "affirm", "water", "now", "there", "air", "to the",
+    "reach", "move away", "German", "something", "someone", "some", "some", "there", "there", "soul",
 
-    "high", "tall", "height", "love", "both", "american", "friend", "love", "wide", "walk",
-    "animal", "ancient", "announce", "analysis", "appear", "barely", "apply",
+    "high", "high", "height", "love", "both", "both", "American", "friend", "love", "wide",
+    "walk", "animal", "before", "ancient", "ancient", "announce", "analysis", "appear", "barely", "apply",
 
-    "support", "learn", "enjoy", "that", "here", "weapon", "art", "ensure", "aspect",
-    "affair", "thus", "cautions", "attention", "dare", "back", "increase", "even", "although", "author",
+    "support", "learn", "take advantage", "that", "that", "here", "weapon", "art", "ensure", "aspect",
+    "matter", "thus", "attentions", "attention", "dare", "behind", "increase", "even", "although", "author",
 
-    "author", "authority", "authentic", "advance", "yesterday", "aid", "help", "blue", "year", "again",
-    "descend", "district", "base", "enough", "suffice", "drink", "good", "white", "mouth", "arm",
+    "author", "authority", "authentic", "advance", "yesterday", "aid", "help", "blue", "year", "still",
+    "go down", "neighborhood", "base", "enough", "suffice", "drink", "well", "white", "mouth", "arm",
 
-    "good", "search", "horse", "head", "each", "chain", "fall", "street", "bed", "change",
+    "good", "look for", "horse", "head", "each", "chain", "fall", "street", "bed", "change",
     "change", "walk", "path", "sky", "complete", "buy", "understand", "check", "common", "communications",
 
-    "common", "with", "concept", "consciousness", "concrete", "condition", "together", "know", "knowledge", "consequence",
-    "obtain", "keep", "consider", "consist", "constant", "constitute", "construct", "contact", "count", "contemplate",
+    "common", "with", "concept", "consciousness", "concrete", "condition", "set", "know", "knowledge", "consequence",
+    "get", "keep", "consider", "consist", "constant", "constitute", "build", "contact", "count", "contemplate",
 
-    "contain", "answer", "continue", "against", "contrary", "control", "conversation", "convert", "heart", "run",
-    "correspond", "current", "cut", "thing", "birch", "saying", "affinity", "avenue", "chestnut", "dawn",
+    "contain", "answer", "continue", "against", "opposite", "control", "conversation", "convert", "heart", "run",
+    "correspond", "current", "cut", "thing", "birch", "adage", "affinity", "avenue", "chestnut", "dawn",
 
-    "pelican", "joy", "noise", "alchemy", "fusion", "poppy", "ambition", "anemone", "host", "desire",
-    "antidote", "apogee", "mystery", "cunning", "archetype", "twilight", "lullaby", "ambition", "dawn", "adventure",
+    "pelican", "joy", "noise", "alchemy", "amalgam", "poppy", "ambition", "anemone", "host", "desire",
+    "antidote", "apogee", "mystery", "trick", "archetype", "dawn", "lullaby", "aspiration", "dawn", "adventure",
 
-    "orange blossom", "rhododendron", "fortress", "bamboo", "basalt", "beauty", "benevolence", "benevolent", "brown", "bizarre",
-    "bohemian", "bohemian", "bravery", "breeze", "bucolic", "vault", "cadence", "heat", "candor", "mahogany",
+    "orange blossom", "azalea", "bastion", "bamboo", "basalt", "beauty", "benevolence", "benevolent", "reddish", "bizarre",
+    "bohemia", "bohemian", "bravery", "breeze", "bucolic", "vault", "cadence", "warmth", "candor", "mahogany",
 
-    "whim", "caress", "carpe diem", "catastrophe", "zenith", "proximity", "spark", "climax", "coexistence", "colossal",
-    "compassion", "concord", "confidentiality", "fire", "connivance", "consternation", "accomplishment", "courage", "crown", "twilight",
+    "whim", "caress", "carpe diem", "cataclysm", "zenith", "closeness", "spark", "climax", "coexistence", "colossal",
+    "compassion", "concord", "confidence", "conflagration", "connivance", "consternation", "consummation", "courage", "crown", "twilight",
 
-    "chromatism", "dance", "delight", "delirium", "awakening", "detach", "destiny", "devotion", "happiness", "gentleness",
-    "boiling", "ecstasy", "effervescence", "ephemeral", "elegance", "charm", "enigma", "epic", "era", "balance",
+    "chromatism", "dance", "delight", "delirium", "awaken", "detach", "destiny", "devotion", "joy", "sweetness",
+    "boiling", "ecstasy", "effervescence", "ephemeral", "elegance", "charm", "enigma", "epic", "epoch", "equilibrium",
 
-    "eroticism", "spirit", "splendor", "explosion", "aesthetic", "euphoria", "escape", "exquisite", "fascination", "bliss",
-    "fervent", "festivities", "fidelity", "flower", "glow", "fusion", "genius", "authentic", "globe", "grace",
+    "eroticism", "spirit", "splendor", "explosion", "aesthetics", "euphoria", "evasion", "exquisite", "fascination", "bliss",
+    "fervor", "festivity", "fidelity", "flower", "glow", "fusion", "genius", "genuine", "globe", "grace",
 
     "gratitude", "harmony", "spell", "hurricane", "idyll", "illuminate", "imagination", "impulse", "incandescence", "independence",
-    "ineffable", "infinite", "immutable", "intense", "garden", "luminous", "majestic", "wonder", "melody", "mystery",
+    "ineffable", "infinite", "immortal", "intense", "garden", "bright", "majestic", "wonder", "melody", "mystery",
 
-    "nature", "nostalgia", "dark", "opportunity", "optimism", "origin", "peace", "fullness", "poetry", "purity",
+    "nature", "nostalgia", "obscure", "opportunity", "optimism", "origin", "peace", "fullness", "poetry", "purity",
     "chimera", "glow", "wealth", "romance", "serenity", "dream", "supremacy", "tenderness", "treasure", "last",
 
-    "union", "universal", "utopia", "valor", "evening", "adventure", "life", "vigor", "virtue", "vision",
-    "vitality", "vivacity", "will", "success", "unique"
+    "union", "universal", "utopia", "bravery", "evening", "venture", "life", "vigor", "virtue", "vision",
+    "vitality", "vivacity", "vivacity", "will", "success", "last", "unique"
 ];
+
 
 
 const wordLists = {

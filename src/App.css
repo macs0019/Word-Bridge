@@ -58,6 +58,7 @@ main {
   max-height: 80vh;
   overflow: auto;
   position: relative;
+  margin-bottom: 4vh;
 }
 
 .scroll-container::-webkit-scrollbar {
@@ -94,6 +95,7 @@ main {
     opacity: 1;
   }
 }
+
 /* 
 @keyframes fadeInAnimation {
   from {
