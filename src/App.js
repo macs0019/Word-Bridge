@@ -322,7 +322,7 @@ function App() {
       } else {
         startShakeAnimation();
       }
-      
+
     })
   }
 
@@ -347,7 +347,7 @@ function App() {
               <WordContainer index={-1} canWritte={!gameOver} word={actualWord} checkAnswer={checkAnswer} inputValue={inputValue} setInputValue={setInputValue}></WordContainer>
             </div>
 
-            {words.length !== 1 && gameOver && <Line Line
+            {gameOver && <Line Line
               code={`line-${"B"}`}
               key={`line-${"B"}`}
               newKey={newKey + 1}></Line>}
