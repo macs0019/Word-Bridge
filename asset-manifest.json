@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/Word-Bridge/static/css/main.ea67f7d7.css",
-    "main.js": "/Word-Bridge/static/js/main.d9348baf.js",
+    "main.css": "/Word-Bridge/static/css/main.a234f0bd.css",
+    "main.js": "/Word-Bridge/static/js/main.aa36e0db.js",
     "static/js/787.a0965fe6.chunk.js": "/Word-Bridge/static/js/787.a0965fe6.chunk.js",
     "static/media/typing.mp3": "/Word-Bridge/static/media/typing.bc05032e119227bea0c1.mp3",
     "index.html": "/Word-Bridge/index.html",
-    "main.ea67f7d7.css.map": "/Word-Bridge/static/css/main.ea67f7d7.css.map",
-    "main.d9348baf.js.map": "/Word-Bridge/static/js/main.d9348baf.js.map",
+    "main.a234f0bd.css.map": "/Word-Bridge/static/css/main.a234f0bd.css.map",
+    "main.aa36e0db.js.map": "/Word-Bridge/static/js/main.aa36e0db.js.map",
     "787.a0965fe6.chunk.js.map": "/Word-Bridge/static/js/787.a0965fe6.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.ea67f7d7.css",
-    "static/js/main.d9348baf.js"
+    "static/css/main.a234f0bd.css",
+    "static/js/main.aa36e0db.js"
   ]
 }
