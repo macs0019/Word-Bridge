@@ -1,5 +1,9 @@
+@import url('https://fonts.googleapis.com/css?family=Baloo+2:400,800&display=swap');
+
 .App {
   text-align: center;
+  font-family: 'Baloo 2', cursive;
+  color: var(--color-text);
 }
 
 #root,
@@ -32,6 +36,7 @@ main {
 .center-container {
   width: 30%;
   display: flex;
+  flex-direction: column;
   background-color: #333;
   /* From https://css.glass */
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
@@ -54,8 +59,8 @@ main {
   align-items: center;
   gap: 0.5rem;
   margin: auto;
-  margin-top: 2.5rem;
-  max-height: 80vh;
+  margin-top: 2.5em;
+ /*  max-height: 68vh; */
   overflow: auto;
   position: relative;
   margin-bottom: 4vh;

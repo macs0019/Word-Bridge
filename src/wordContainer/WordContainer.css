@@ -23,7 +23,7 @@
     background-color: var(--color-input-background);
     padding: 20px;
     border-radius: var(--border-radius);
-    border: none;
+    /* border: none; */
     /*     caret-color: transparent; */
     caret-color: #333;
 }

@@ -1,25 +1,16 @@
-import logo from './logo.svg';
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import Confetti from 'react-confetti';
 import './App.css';
 import Bar from './bar/Bar';
-import WordContainer from './wordContainer/WordContainer';
-import { generate, count } from "random-words";
-import { useEffect, useLayoutEffect, useRef, useState } from 'react';
-import { similarity } from './services/similarityService';
-import Line from './line/Line';
-import Modal from '@mui/material/Modal';
-import React from 'react';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import { Height } from '@mui/icons-material';
-import { Grow } from '@mui/material';
-import { v4 as uuidv4 } from 'uuid';
-import Confetti from 'react-confetti'
 import useWindowSize from './hooks/useWindowSize';
+import Line from './line/Line';
+import { startPulseAnimation, startShakeAnimation, stopPulseAnimation } from './services/animationService';
 import { changeDate } from './services/dateService';
-import { getWordFromSeed } from './services/randomWords'
 import { changeLanguage } from './services/languageService';
-import { startShakeAnimation, stopPulseAnimation, stopShakeAnimation, startPulseAnimation } from './services/animationService'
+import { getWordFromSeed } from './services/randomWords';
+import { similarity } from './services/similarityService';
+import WordContainer from './wordContainer/WordContainer';
+import VictoryScreen from './victoryScreen/victoryScreen';
 
 function App() {
 
@@ -72,6 +63,19 @@ function App() {
     setGameOver(false)
   }, [playingDate])
 
+
+  function ajustarMinHeight(ref) {
+    // Verifica si el ref y su propiedad current están definidos
+    if (ref && ref.current) {
+      const alturaViewport = window.innerHeight;
+      const alturaVhEnPixeles = (16 * alturaViewport) / 100; // Calcula el 12% de la altura del viewport
+      const nuevaAltura = window.innerHeight - alturaVhEnPixeles; // Nueva altura restando el 12vh
+
+      // Ajusta la propiedad minHeight del elemento referenciado
+      ref.current.style.minHeight = `${nuevaAltura}px !important`;
+    }
+  }
+
   const checkAnswer = (word) => {
     similarity(words[0], word, language).then((result) => {
       if (result !== undefined) {
@@ -79,6 +83,7 @@ function App() {
           similarity(end, word, language).then((result) => {
             if (result > 0.15) {
               //setWords([word, ...words]);
+              ajustarMinHeight(centerContainerRef)
               setGameOver(true);
               setopenWin(true);
               stopPulseAnimation(divRef);
@@ -106,8 +111,9 @@ function App() {
       </header>
       <main>
         <div className='background'></div>
-        <div className='center-container' id={"center-container"}>
-          <div ref={centerContainerRef} id={"scroll-container"} className='scroll-container'>
+        <div ref={centerContainerRef} className='center-container' id={"center-container"}>
+          {gameOver && <VictoryScreen></VictoryScreen>}
+          <div id={"scroll-container"} className='scroll-container'>
 
             <WordContainer canWritte={false} inputValue={end} index={words.length + 2}></WordContainer>
 
