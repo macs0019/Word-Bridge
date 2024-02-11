@@ -30,7 +30,7 @@ function App() {
 
   //Ajustar tamaño de la ventana
   const centerContainerRef = useRef(null);
-  useWindowSize(centerContainerRef);
+  //useWindowSize(centerContainerRef);
 
   //Refrescar key de la primera barra
   const [newKey, setNewKey] = useState("")

@@ -9,7 +9,7 @@ const useWindowSize = (centerContainerRef) => {
             const alturaVhEnPixeles = (4 * alturaViewport) / 100;
             setDeviceWidth(window.innerWidth);
             const heightVh = window.innerHeight * 0.06; // Calcula 6% de la altura de la ventana gráfica
-            const newHeight = window.innerHeight - heightVh; // Resta el 6% de la altura de la ventana gráfica
+            const newHeight = window.innerHeight - heightVh * 2; // Resta el 6% de la altura de la ventana gráfica
             const newHeightPx = newHeight + "px";
             if (deviceWidth <= 1800 && centerContainerRef.current) {
                 centerContainerRef.current.style.minHeight = newHeightPx;
