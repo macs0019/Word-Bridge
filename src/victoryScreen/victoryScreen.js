@@ -10,7 +10,7 @@ const VictoryScreen = ({ setOpenCalendar, changeDate, date, language, setEnd, se
     const redo = () => {
         changeDate(date, language, setEnd, setWords, setStart, getWordFromSeed, setPlayingDate);
         reset();
-       //saveCompletedLevels(date, [])
+        saveCompletedLevels(date, [], language)
     }
 
     return (<>
