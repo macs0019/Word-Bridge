@@ -94,7 +94,7 @@
     }
 
     50% {
-        transform: scale(1.05);
+        transform: scale(1.02);
         /* En el punto medio de la animación, el elemento crece un 5% */
     }
 }

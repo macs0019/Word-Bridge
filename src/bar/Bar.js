@@ -18,13 +18,12 @@ import FormControl from '@mui/material';
 import LanguageDropdown from '../dropdown/LenguageDropdown';
 import { getWordFromSeed } from '../services/randomWords';
 
-const Bar = ({ changeDate, language, setLanguage, setEnd, setWords, setStart, getWordFromSeed, setPlayingDate }) => {
+const Bar = ({ changeDate, language, setLanguage, setEnd, setWords, setStart, getWordFromSeed, setPlayingDate, openCalendar, setOpenCalendar }) => {
 
     const [openHelp, setOpenHelp] = useState(false);
     const handleOpenHelp = () => setOpenHelp(true);
     const handleCloseHelp = () => setOpenHelp(false);
 
-    const [openCalendar, setOpenCalendar] = useState(false);
     const handleOpenCalendar = () => setOpenCalendar(true);
     const handleCloseCalendar = () => setOpenCalendar(false);
 
@@ -33,16 +32,17 @@ const Bar = ({ changeDate, language, setLanguage, setEnd, setWords, setStart, ge
 
     const changeDay = (date) => {
         changeDate(date, language, setEnd, setWords, setStart, getWordFromSeed, setPlayingDate);
+        console.log(date)
         handleCloseCalendar(true);
     }
 
     useEffect(() => {
         if (openCalendar) {
             const endDate = new Date();
-            endDate.setDate(new Date().getDate() + 50);
-            const endDateFormat = endDate.toISOString().split('T')[0];
+            endDate.setDate(new Date().getDate());
+            //const endDateFormat = endDate.toISOString().split('T')[0];
 
-            const list = generateDateList(endDateFormat);
+            const list = generateDateList();
             setDateList(list);
         }
     }, [openCalendar]);
@@ -109,11 +109,10 @@ const Bar = ({ changeDate, language, setLanguage, setEnd, setWords, setStart, ge
                             📈 Levels history 📈
                         </Typography>
                         <Grid container spacing={2} className='tiles-container'>
-                            {dateList.map((date, index) => (
+                            {[...dateList].reverse().map((date, index, reversedArray) => (
                                 <Grid item xs={'auto'} key={index} className={"calendar-grid"}>
-                                    <Box onClick={() => changeDay(date)} className={"tiles"}
-                                    >
-                                        {dateList.length - (index)}
+                                    <Box onClick={() => changeDay(date)} className={"tiles"}>
+                                        {reversedArray.length - index}
                                     </Box>
                                 </Grid>
                             ))}

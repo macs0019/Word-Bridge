@@ -1,7 +1,20 @@
 .victory-screen {
-    color: #ece5ce;
-    font-family: 'Baloo 2', cursive;
-    font-weight: bold;
-    height: 10vh;
-    margin-top: 2vh;
+  color: #ece5ce;
+  font-family: 'Baloo 2', cursive;
+  font-weight: bold;
+  height: 10vh;
+  margin-top: 2vh;
+
+  animation: grow-anim 0.7s ease-out forwards;
+}
+
+
+@keyframes grow-anim {
+  from {
+    height: 0vh;
   }
+
+  to {
+    height: 10vh;
+  }
+}

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './LenguageDropdown.css'
 import ReactCountryFlag from "react-country-flag"
+import { useEffect } from 'react';
 
 // Lista de idiomas y sus emojis de banderas
 const languages = [
@@ -21,7 +22,13 @@ const LanguageDropdown = ({ language, setLanguage }) => {
     reduce();
 
   }
-
+  useEffect(() => {
+    const savedLanguage = localStorage.getItem('language');
+    if (savedLanguage) {
+      console.log(savedLanguage)
+      setSelectedLanguage(languages.find(language => language.code === savedLanguage));
+    }
+  }, []);
   const reduce = () => {
     const elementos = document.querySelectorAll('.flag-icon-drop');
 

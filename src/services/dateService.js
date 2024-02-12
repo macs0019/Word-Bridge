@@ -1,11 +1,11 @@
 import { generate, count } from "random-words";
 
-export function generateDateList(end) {
+export function generateDateList() {
     let startDate = new Date("2023-11-21");
-    let endDate = new Date(end);
+    let endDate = new Date();
     let dateArray = [];
 
-    while (startDate <= endDate) {
+    while (startDate < endDate) {
         dateArray.push(startDate.toISOString().split('T')[0]);
         startDate.setDate(startDate.getDate() + 1);
     }

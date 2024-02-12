@@ -24,11 +24,12 @@
     height: 4rem;
     width: 4rem;
     background-color: #333;
-    color: white;
+    color: #ece5ce;
     /* Nota: se ha removido la duplicidad en la propiedad color */
     display: flex;
     align-items: center;
     justify-content: center;
+    border-radius: 10px;
 }
 
 .tiles-container {
