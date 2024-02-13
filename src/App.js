@@ -50,15 +50,12 @@ function App() {
 
   useEffect(() => {
     const solutions = getCompletedLevels(playingDate, language);
-    console.log("Solución: " + solutions)
     if (solutions && solutions.length !== 0) {
-      console.log("dentro del if")
       setStart(solutions[0]);
       setEnd(solutions[solutions.length - 1]);
       setInputValue(solutions[solutions.length - 2])
       const reversedSolutions = solutions.slice(0, -2).slice().reverse();
       setWords(reversedSolutions);
-      console.log("test: " + solutions.slice(0, -2))
       setGameOver(true);
     }
   }, [playingDate, language]);
@@ -105,8 +102,6 @@ function App() {
     // Obtener el string almacenado del Local Storage
     const storedArrayString = localStorage.getItem('completedLevels');
 
-    console.log(storedArrayString);
-
     // Verificar si existe algún dato almacenado
     if (storedArrayString) {
       // Convertir el string de vuelta a un objeto
@@ -125,33 +120,23 @@ function App() {
   }
 
 
-
-  function ajustarMinHeight(ref) {
-    // Verifica si el ref y su propiedad current están definidos
-    if (ref && ref.current) {
-      const alturaViewport = window.innerHeight;
-      const alturaVhEnPixeles = (16 * alturaViewport) / 100; // Calcula el 12% de la altura del viewport
-      const nuevaAltura = window.innerHeight - alturaVhEnPixeles; // Nueva altura restando el 12vh
-
-      // Ajusta la propiedad minHeight del elemento referenciado
-      ref.current.style.minHeight = `${nuevaAltura}px !important`;
-    }
-  }
-
   const checkAnswer = (word) => {
+    if (words.includes(word) || word === words[0] || word === end) {
+      stopPulseAnimation(divRef);
+      setInputValue("");
+      startShakeAnimation(divRef); // Assuming you meant startShakeAnimation here
+      return;
+    }
     similarity(words[0], word, language).then((result) => {
       if (result !== undefined) {
         if (result > 0.090) {
           similarity(end, word, language).then((result) => {
             if (result > 0.15) {
-              ajustarMinHeight(centerContainerRef)
               setGameOver(true);
               setopenWin(true);
-              console.log("Actual solution: " + [...solution, word, end])
               saveCompletedLevels(playingDate, [...solution, word, end], language)
               stopPulseAnimation(divRef);
             } else {
-              console.log("Palabra: " + word)
               setWords([word, ...words]);
               setSolution(solution => [...solution, word]);
               setInputValue("");
@@ -197,7 +182,7 @@ function App() {
               newKey={newKey + 1}></Line>}
 
             {words.map((word, index) => (
-              <>
+              <div key={"div " + word}>
                 <div key={word} className={(word !== words[0]) && gameOver ? "item" : "fadeIn"}>
                   <WordContainer id={word} key={index} inputValue={word} canWritte={false} index={index}></WordContainer>
                 </div>
@@ -206,7 +191,7 @@ function App() {
                   key={`line-${index}`}
                   newKey={newKey}
                 />}
-              </>
+              </div>
             ))}
           </div>
         </div>

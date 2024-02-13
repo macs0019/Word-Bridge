@@ -27,6 +27,7 @@ const Bar = ({ changeDate, language, setLanguage, setEnd, setWords, setStart, ge
     const handleOpenCalendar = () => setOpenCalendar(true);
     const handleCloseCalendar = () => setOpenCalendar(false);
 
+    const [completedLevels, setCompletedLevels] = useState({});
 
     const [dateList, setDateList] = useState([]);
 
@@ -46,6 +47,11 @@ const Bar = ({ changeDate, language, setLanguage, setEnd, setWords, setStart, ge
             setDateList(list);
         }
     }, [openCalendar]);
+
+    useEffect(() => {
+        const levels = localStorage.getItem('completedLevels');
+        setCompletedLevels(levels ? JSON.parse(levels) : {});
+    }, [openCalendar])
 
     return (
         <>
@@ -105,13 +111,21 @@ const Bar = ({ changeDate, language, setLanguage, setEnd, setWords, setStart, ge
             >
                 <Grow in={openCalendar} timeout={300}>
                     <Box className={"box-container"}>
-                        <Typography id="modal-modal-title" variant="h6" component="h2" sx={{ fontWeight: 'bold', color: '#333', textAlign: 'center' }}>
+                        <Typography id="modal-modal-title" variant="h6" component="h2" className='modal-title'>
                             📈 Levels history 📈
                         </Typography>
                         <Grid container spacing={2} className='tiles-container'>
                             {[...dateList].reverse().map((date, index, reversedArray) => (
                                 <Grid item xs={'auto'} key={index} className={"calendar-grid"}>
-                                    <Box onClick={() => changeDay(date)} className={"tiles"}>
+                                    <Box
+                                        onClick={() => changeDay(date)}
+                                        className={
+                                            `tiles ${completedLevels[date] && completedLevels[date][language] && completedLevels[date][language].length > 0
+                                                ? "green-tile"
+                                                : ""
+                                            }`
+                                        }
+                                    >
                                         {reversedArray.length - index}
                                     </Box>
                                 </Grid>
