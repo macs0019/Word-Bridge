@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/Word-Bridge/static/css/main.304c65d8.css",
-    "main.js": "/Word-Bridge/static/js/main.81fbc93b.js",
+    "main.css": "/Word-Bridge/static/css/main.ea045acf.css",
+    "main.js": "/Word-Bridge/static/js/main.e636906d.js",
     "static/js/787.a0965fe6.chunk.js": "/Word-Bridge/static/js/787.a0965fe6.chunk.js",
     "static/media/typing.mp3": "/Word-Bridge/static/media/typing.bc05032e119227bea0c1.mp3",
     "index.html": "/Word-Bridge/index.html",
-    "main.304c65d8.css.map": "/Word-Bridge/static/css/main.304c65d8.css.map",
-    "main.81fbc93b.js.map": "/Word-Bridge/static/js/main.81fbc93b.js.map",
+    "main.ea045acf.css.map": "/Word-Bridge/static/css/main.ea045acf.css.map",
+    "main.e636906d.js.map": "/Word-Bridge/static/js/main.e636906d.js.map",
     "787.a0965fe6.chunk.js.map": "/Word-Bridge/static/js/787.a0965fe6.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.304c65d8.css",
-    "static/js/main.81fbc93b.js"
+    "static/css/main.ea045acf.css",
+    "static/js/main.e636906d.js"
   ]
 }
