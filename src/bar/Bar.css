@@ -112,6 +112,12 @@
     }
 }
 
+@media only screen and (max-width: 750px) {
+    .title{
+        font-size: 1rem;
+    }
+}
+
 .green-tile {
     background-color: #9DBC98;
     /* Ajusta el color según tu diseño */

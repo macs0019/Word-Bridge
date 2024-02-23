@@ -2,17 +2,15 @@ import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import Confetti from 'react-confetti';
 import './App.css';
 import Bar from './bar/Bar';
-import useWindowSize from './hooks/useWindowSize';
 import Line from './line/Line';
 import { startPulseAnimation, startShakeAnimation, stopPulseAnimation } from './services/animationService';
 import { changeDate } from './services/dateService';
 import { changeLanguage } from './services/languageService';
 import { getWordFromSeed } from './services/randomWords';
-import { similarity } from './services/similarityService';
-import WordContainer from './wordContainer/WordContainer';
-import VictoryScreen from './victoryScreen/victoryScreen';
 import { saveCompletedLevels } from './services/saveService';
-import { SettingsPhoneSharp } from '@mui/icons-material';
+import { similarity } from './services/similarityService';
+import VictoryScreen from './victoryScreen/victoryScreen';
+import WordContainer from './wordContainer/WordContainer';
 
 function App() {
 
@@ -182,7 +180,7 @@ function App() {
               newKey={newKey + 1}></Line>}
 
             {words.map((word, index) => (
-              <div key={"div " + word}>
+              <>
                 <div key={word} className={(word !== words[0]) && gameOver ? "item" : "fadeIn"}>
                   <WordContainer id={word} key={index} inputValue={word} canWritte={false} index={index}></WordContainer>
                 </div>
@@ -191,10 +189,10 @@ function App() {
                   key={`line-${index}`}
                   newKey={newKey}
                 />}
-              </div>
+              </>
             ))}
           </div>
-        </div>
+        </div >
 
         {openWin &&
           <Confetti

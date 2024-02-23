@@ -58,7 +58,7 @@ const Bar = ({ changeDate, language, setLanguage, setEnd, setWords, setStart, ge
             <div className="bar-container">
                 <div style={{ width: '3rem' }}></div>
                 <HelpOutlineIcon onClick={handleOpenHelp} className='icon' />
-                <h2>Word Bridge</h2>
+                <h2 className='title'>Word Bridge</h2>
                 <CalendarMonthIcon onClick={handleOpenCalendar} className='icon' />
                 <LanguageDropdown language={language} setLanguage={setLanguage}></LanguageDropdown>
             </div>
