@@ -26,6 +26,7 @@
     /* border: none; */
     /*     caret-color: transparent; */
     caret-color: #333;
+    overflow: hidden;
 }
 
 /* Eliminar estilos no deseados para limpieza */
