@@ -1,40 +1,67 @@
 @import url('https://fonts.googleapis.com/css?family=Baloo+2:400,800&display=swap');
 
 
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
 .bar-container {
     display: flex;
-    width: 100%;
-    color: #ece5ce;
-    justify-content: center;
-    gap: 1.5rem;
+    justify-content: space-between; /* Coloca el título a la izquierda y los íconos a la derecha */
     align-items: center;
-    background-color: #333;
+    width: 90%; /* Ancho de la barra */
+    margin: 0 auto; /* Centra horizontalmente la barra */
+    color: #ece5ce;
+    padding-left: 15px;
+    padding-right: 15px;
+    gap: 1.5rem;
     z-index: 1;
     height: 6vh;
     position: relative;
-    /* Añadiendo sombra en la parte inferior */
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
-    /* From https://css.glass */
     backdrop-filter: blur(5px);
     -webkit-backdrop-filter: blur(5px);
 }
 
+.bar-container::after {
+    content: '';
+    display: block;
+    width: 100%; /* Ocupa el 90% del ancho de la barra */
+    height: 2px; /* Altura del separador */
+    background-color: #333; /* Color del separador */
+    margin: 0 auto; /* Centra el separador horizontalmente */
+    position: absolute;
+    bottom: -2px; /* Coloca el separador justo debajo de la barra */
+    left: 0;
+    right: 0;
+}
+
 .icon {
-    color: #ece5ce;
+    /*color: #ece5ce;*/
+    color: #333;
+}
+
+.title {
+    font-family: 'Baloo 2', cursive;
+    font-weight: bold;
+    color: #333;
+    text-align: center;
+    font-size: 2rem; /* Aumenta el tamaño del texto del título */
 }
 
 .tiles {
-    height: 4rem;
-    width: 4rem;
+    height: 5rem; /* Aumenta la altura de los botones */
+    width: 5rem; /* Aumenta el ancho de los botones */
     background-color: #333;
-    color: #ece5ce;
-    /* Nota: se ha removido la duplicidad en la propiedad color */
+    color: #ece5ce !important;
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 10px;
     cursor: pointer;
     font-family: 'Baloo 2', cursive;
+    font-size: 1.2rem; /* Aumenta el tamaño del texto dentro de los botones */
 }
 
 .tiles-container {
@@ -88,7 +115,7 @@
 
 /* Handle */
 .tiles-container::-webkit-scrollbar-thumb {
-    background: #333;
+    background: #ece5ce;
     /* Scrollbar color */
     border-radius: 10px;
     /* Rounded corners for the scrollbar */
@@ -96,7 +123,7 @@
 
 /* Handle on hover */
 .tiles-container::-webkit-scrollbar-thumb:hover {
-    background: #333;
+    background: #ece5ce;
 }
 
 @media only screen and (max-width: 900px) {
@@ -121,4 +148,17 @@
 .green-tile {
     background-color: #9DBC98;
     /* Ajusta el color según tu diseño */
+}
+
+.navbar-separator {
+    width: 90%; /* Ocupa el 90% del ancho de la barra */
+    height: 2px; /* Altura del separador */
+    background-color: #333; /* Color del separador */
+    margin: 0 auto; /* Centra el separador horizontalmente */
+}
+
+.icons-container {
+    display: flex;
+    align-items: center;
+    gap: 1rem; /* Espaciado entre los íconos */
 }

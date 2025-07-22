@@ -2,14 +2,14 @@
     position: relative;
     display: inline-block;
     border: 10px;
-    border-color: #ece5ce;
+    border-color: #333;
 }
 
 .language-dropdown button {
-    color: #ece5ce;
+    color: #333;
     padding: 10px;
     border: 10px;
-    border-color: #ece5ce;
+    border-color: #333;
     background-color: transparent;
     cursor: pointer;
 }

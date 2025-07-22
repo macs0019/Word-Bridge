@@ -17,16 +17,17 @@
 
 .word-box input {
     text-align: center !important;
-    font-weight: bold;
-    font-family: 'Baloo 2', cursive;
+    font-weight: 800;
+    font-family: 'Clear Sans', 'Helvetica Neue', Arial, sans-serif;
+    font-size: 35px;
     color: var(--color-text);
     background-color: var(--color-input-background);
     padding: 20px;
     border-radius: var(--border-radius);
-    /* border: none; */
-    /*     caret-color: transparent; */
     caret-color: #333;
     overflow: hidden;
+    text-transform: uppercase;
+    border: 2px solid #333; /* Agrega un borde con el color #333 */
 }
 
 /* Eliminar estilos no deseados para limpieza */
@@ -77,7 +78,7 @@
 } */
 
 .word-box {
-    animation: float 5s ease-in-out infinite;
+    /*animation: float 5s ease-in-out infinite;*/
 }
 
 .word-container {
@@ -101,5 +102,5 @@
 }
 
 .pulse-animation {
-    animation: pulse 2s infinite ease-in-out;
+    /*animation: pulse 2s infinite ease-in-out;*/
 }
