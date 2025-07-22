@@ -13,7 +13,7 @@
     align-items: center;
     width: 90%; /* Ancho de la barra */
     margin: 0 auto; /* Centra horizontalmente la barra */
-    color: #ece5ce;
+    color: #FAFAF8;
     padding-left: 15px;
     padding-right: 15px;
     gap: 1.5rem;
@@ -38,7 +38,7 @@
 }
 
 .icon {
-    /*color: #ece5ce;*/
+    /*color: #FAFAF8;*/
     color: #333;
 }
 
@@ -54,7 +54,7 @@
     height: 5rem; /* Aumenta la altura de los botones */
     width: 5rem; /* Aumenta el ancho de los botones */
     background-color: #333;
-    color: #ece5ce !important;
+    color: #FAFAF8 !important;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -88,7 +88,7 @@
     left: 50%;
     transform: translate(-50%, -50%) !important;
     width: 40vw;
-    background-color: #ece5ce;
+    background-color: #FAFAF8;
     border: none;
     outline: none;
     padding: 1rem;
@@ -115,7 +115,7 @@
 
 /* Handle */
 .tiles-container::-webkit-scrollbar-thumb {
-    background: #ece5ce;
+    background: #FAFAF8;
     /* Scrollbar color */
     border-radius: 10px;
     /* Rounded corners for the scrollbar */
@@ -123,7 +123,7 @@
 
 /* Handle on hover */
 .tiles-container::-webkit-scrollbar-thumb:hover {
-    background: #ece5ce;
+    background: #FAFAF8;
 }
 
 @media only screen and (max-width: 900px) {

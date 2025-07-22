@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Baloo+2:400,800&display=swap');
 
 :root {
-    --color-background: #ece5ce;
+    --color-background: #FAFAF8;
     /* Color de fondo general para el neumorfismo */
     --color-shadow-dark: rgba(0, 0, 0, 0.2);
     /* Sombra oscura para el efecto hundido */
@@ -103,4 +103,26 @@
 
 .pulse-animation {
     /*animation: pulse 2s infinite ease-in-out;*/
+}
+
+@keyframes grow {
+    from {
+        transform: scale(0);
+        /* Empieza con tamaño 0 */
+        opacity: 0;
+        /* Empieza invisible */
+    }
+    to {
+        transform: scale(1);
+        /* Tamaño final */
+        opacity: 1;
+        /* Totalmente visible */
+    }
+}
+
+.writing-container-animated {
+    animation: grow 0.3s ease-out;
+    /* Aplica la animación */
+    transform-origin: center;
+    /* Asegura que crezca desde el centro */
 }

@@ -34,6 +34,7 @@ export function changeDate(date, language, setEnd, setWords, setStart, getWordFr
     setStart(newStart);
     setEnd(newEnd);
     setWords([newStart]); // Asumiendo que quieres iniciar la lista de palabras con la palabra de inicio
+    setWords((prevWords) => ['', ...prevWords]);
     setPlayingDate(date); // Actualizar la fecha de juego
 }
 

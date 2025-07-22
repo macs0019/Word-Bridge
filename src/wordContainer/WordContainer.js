@@ -7,6 +7,14 @@ const WordContainer = ({ canWritte, checkAnswer, inputValue, setInputValue }) =>
     // Crea una referencia al objeto de audio usando el archivo importado
     const audioRef = useRef(new Audio(typingSound));
 
+    const inputRef = useRef(null);
+
+    useEffect(() => {
+        if (canWritte && inputRef.current) {
+            inputRef.current.focus();
+        }
+    }, [canWritte]);
+
     useEffect(() => {
         // Pre-carga el audio y establece cómo manejar el final de la reproducción
         const audio = audioRef.current;
@@ -19,6 +27,7 @@ const WordContainer = ({ canWritte, checkAnswer, inputValue, setInputValue }) =>
                 audio.currentTime = 0;
             });
         };
+
     }, []);
 
     const playSound = () => {
@@ -45,6 +54,7 @@ const WordContainer = ({ canWritte, checkAnswer, inputValue, setInputValue }) =>
             <TextField
                 className='word-box'
                 hiddenLabel
+                inputRef={inputRef}
                 value={inputValue}
                 variant="filled"
                 size="small"

@@ -82,9 +82,9 @@ function App() {
 
 
   useLayoutEffect(() => {
-    const divElement = document.getElementById("writting-container");
-    divRef.current = divElement;
-    startPulseAnimation(divRef);
+    //const divElement = document.getElementById("writting-container");
+    //divRef.current = divElement;
+    //startPulseAnimation(divRef);
     setInputValue("");
     /*  setSolution([]) */
     setGameOver(false)
@@ -119,13 +119,14 @@ function App() {
 
 
   const checkAnswer = (word) => {
-    if (words.includes(word) || word === words[0] || word === end) {
-      stopPulseAnimation(divRef);
+    if (words.includes(word) || word === words[1] || word === end) {
+      //stopPulseAnimation(divRef);
       setInputValue("");
-      startShakeAnimation(divRef); // Assuming you meant startShakeAnimation here
+      //startShakeAnimation(divRef); // Assuming you meant startShakeAnimation here
       return;
     }
-    similarity(words[0], word, language).then((result) => {
+    console.log("Checking answer for word:", word);
+    similarity(words[1], word, language).then((result) => {
       if (result !== undefined) {
         if (result > 0.090) {
           similarity(end, word, language).then((result) => {
@@ -133,20 +134,25 @@ function App() {
               setGameOver(true);
               setopenWin(true);
               saveCompletedLevels(playingDate, [...solution, word, end], language)
-              stopPulseAnimation(divRef);
+              //stopPulseAnimation(divRef);
             } else {
               setWords([word, ...words]);
+              setWords((prevWords) => {
+                const newWords = [...prevWords]; // Crea una copia del array
+                newWords[1] = word; // Cambia el valor en la posición 1
+                return newWords; // Devuelve el array modificado
+              });
               setSolution(solution => [...solution, word]);
               setInputValue("");
               setNewKey(Math.random().toString(16));
             }
           })
         } else {
-          stopPulseAnimation(divRef);
-          startShakeAnimation(divRef);
+          //stopPulseAnimation(divRef);
+          //startShakeAnimation(divRef);
         }
       } else {
-        startShakeAnimation(divRef);
+        //startShakeAnimation(divRef);
       }
 
     })
@@ -170,28 +176,50 @@ function App() {
               key={`line-${"A"}`}
               newKey={newKey + 1}></Line>}
 
-            <div id="writting-container" className=''>
-              <WordContainer index={-1} canWritte={!gameOver} checkAnswer={checkAnswer} inputValue={inputValue} setInputValue={setInputValue}></WordContainer>
-            </div>
-
-            {gameOver && <Line Line
-              code={`line-${"B"}`}
-              key={`line-${"B"}`}
-              newKey={newKey + 1}></Line>}
-
             {words.map((word, index) => (
               <>
-                <div key={word} className={(word !== words[0]) && gameOver ? "item" : "fadeIn"}>
-                  <WordContainer id={word} key={index} inputValue={word} canWritte={false} index={index}></WordContainer>
-                </div>
-                {words.length !== 1 && index !== words.length - 1 && <Line
-                  code={`line-${index}`}
-                  key={`line-${index}`}
-                  newKey={newKey}
-                />}
+                {index === 0 ? (
+                  // Si es el primer WordContainer (posición 0), renderiza el input editable
+                  <>
+                    <div key={word} className="writing-container-animated">
+                      <WordContainer
+                        index={-1}
+                        canWritte={!gameOver}
+                        checkAnswer={checkAnswer}
+                        inputValue={inputValue}
+                        setInputValue={setInputValue}
+                      ></WordContainer>
+                    </div>
+
+                    {gameOver && <Line Line
+                      code={`line-${"B"}`}
+                      key={`line-${"B"}`}
+                      newKey={newKey + 1}></Line>}
+                  </>
+                ) : (
+
+                  // Si no es el primer WordContainer, renderiza el resto normalmente
+                  <div key={word} className={(word !== words[0]) && gameOver ? "item" : "fadeIn"}>
+                    <WordContainer
+                      id={word}
+                      key={index}
+                      inputValue={word}
+                      canWritte={false}
+                      index={index}
+                    ></WordContainer>
+                  </div>
+                )}
+                {/* Renderiza las líneas entre los WordContainer */}
+                {words.length !== 2 && index !== words.length - 1 && index != 0 && (
+                  <Line
+                    code={`line-${index}`}
+                    key={`line-${index}`}
+                    newKey={newKey}
+                  />
+                )}
               </>
             ))}
-          </div>
+          </div >
         </div >
 
         {openWin &&
