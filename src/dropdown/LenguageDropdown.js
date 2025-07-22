@@ -70,7 +70,7 @@ const LanguageDropdown = ({ language, setLanguage }) => {
             cdnUrl="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.4.3/flags/1x1/"
             cdnSuffix="svg"
             title={selectedLanguage.code}
-            style={{ fontSize: '1.5rem', display: 'flex', justifyContent: 'center', borderRadius: '50px', border: '3px solid #ece5ce' }}
+            style={{ fontSize: '1.5rem', display: 'flex', justifyContent: 'center', borderRadius: '50px', border: '3px solid #333' }}
           />
         </span>
       </button>
