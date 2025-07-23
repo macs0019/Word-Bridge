@@ -31,10 +31,10 @@ export function changeDate(date, language, setEnd, setWords, setStart, getWordFr
     }
 
     // Actualizar los estados con las nuevas palabras y la fecha
+    console.log("New Start Word:", newStart);
     setStart(newStart);
     setEnd(newEnd);
-    setWords([newStart]); // Asumiendo que quieres iniciar la lista de palabras con la palabra de inicio
-    setWords((prevWords) => ['', ...prevWords]);
+    setWords(['',newStart]); // Asumiendo que quieres iniciar la lista de palabras con la palabra de inicio
     setPlayingDate(date); // Actualizar la fecha de juego
 }
 

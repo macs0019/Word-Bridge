@@ -49,7 +49,7 @@ function App() {
   useEffect(() => {
     const solutions = getCompletedLevels(playingDate, language);
     if (solutions && solutions.length !== 0) {
-      setStart(solutions[0]);
+      setStart(solutions[1]);
       setEnd(solutions[solutions.length - 1]);
       setInputValue(solutions[solutions.length - 2])
       const reversedSolutions = solutions.slice(0, -2).slice().reverse();
@@ -64,6 +64,7 @@ function App() {
     if (!solutions || solutions.length === 0) {
       setGameOver(false)
       changeLanguage(language, playingDate, getWordFromSeed, setStart, setEnd, setWords);
+      console.log("Language changed to:", language);
       setInputValue("");
     }
   }, [language]);
@@ -177,7 +178,9 @@ function App() {
               newKey={newKey + 1}></Line>}
 
             {words.map((word, index) => (
+              console.log("Word", word, index),
               <>
+
                 {index === 0 ? (
                   // Si es el primer WordContainer (posición 0), renderiza el input editable
                   <>
@@ -199,7 +202,7 @@ function App() {
                 ) : (
 
                   // Si no es el primer WordContainer, renderiza el resto normalmente
-                  <div key={word} className={(word !== words[0]) && gameOver ? "item" : "fadeIn"}>
+                  <div key={word} className={(word !== words[1]) && gameOver ? "item" : "fadeIn"}>
                     <WordContainer
                       id={word}
                       key={index}

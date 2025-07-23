@@ -41,7 +41,7 @@ export function changeLanguage(language, playingDate, getWordFromSeed, setStart,
   // Actualizar los estados correspondientes.
   setStart(newStart);
   setEnd(newEnd);
-  setWords([newStart]);
+  setWords(['',newStart]);
   // No es necesario llamar a setPlayingDate a menos que desees cambiar la fecha actual de juego.
   // setPlayingDate(dt.toISOString()); // Si decides actualizar la fecha de juego.
 }
