@@ -11,6 +11,7 @@ import { saveCompletedLevels } from './services/saveService';
 import { similarity } from './services/similarityService';
 import VictoryScreen from './victoryScreen/victoryScreen';
 import WordContainer from './wordContainer/WordContainer';
+import BarLoader from 'react-spinners/BarLoader'; // Importa el spinner
 
 function App() {
 
@@ -24,6 +25,7 @@ function App() {
   const [confettiKey, setConfettiKey] = useState(0); // Una clave para forzar el remontaje
   const [openCalendar, setOpenCalendar] = useState(false);
   const [solution, setSolution] = useState([start])
+  const [visibleLoader, setVisibleLoader] = useState(false);
 
   const [language, setLanguage] = useState("us");
 
@@ -35,6 +37,21 @@ function App() {
 
   //Refrescar key de la primera barra
   const [newKey, setNewKey] = useState("")
+
+  const [loading, setLoading] = useState(false);
+
+
+  useEffect(() => {
+    if (loading) {
+      setVisibleLoader(true);
+    }
+  }, [loading]);
+
+  const handleAnimationEnd = () => {
+    if (!loading) {
+      setVisibleLoader(false);
+    }
+  };
 
   useEffect(() => {
     const savedLanguage = localStorage.getItem('language');
@@ -49,11 +66,12 @@ function App() {
   useEffect(() => {
     const solutions = getCompletedLevels(playingDate, language);
     if (solutions && solutions.length !== 0) {
-      setStart(solutions[1]);
+      setStart(solutions[0]);
       setEnd(solutions[solutions.length - 1]);
       setInputValue(solutions[solutions.length - 2])
-      const reversedSolutions = solutions.slice(0, -2).slice().reverse();
+      const reversedSolutions = solutions.slice(0, -1).slice().reverse();
       setWords(reversedSolutions);
+
       setGameOver(true);
     }
   }, [playingDate, language]);
@@ -64,7 +82,6 @@ function App() {
     if (!solutions || solutions.length === 0) {
       setGameOver(false)
       changeLanguage(language, playingDate, getWordFromSeed, setStart, setEnd, setWords);
-      console.log("Language changed to:", language);
       setInputValue("");
     }
   }, [language]);
@@ -83,8 +100,8 @@ function App() {
 
 
   useLayoutEffect(() => {
-    //const divElement = document.getElementById("writting-container");
-    //divRef.current = divElement;
+    const divElement = document.getElementById("word-input");
+    divRef.current = divElement;
     //startPulseAnimation(divRef);
     setInputValue("");
     /*  setSolution([]) */
@@ -119,54 +136,74 @@ function App() {
   }
 
 
-  const checkAnswer = (word) => {
+  const checkAnswer = async (word) => {
+    const divElement = document.getElementById("word-input");
+    divRef.current = divElement;
+
+    const MINIMUM_LOADING_TIME = 1000; // Tiempo mínimo en milisegundos
+    const startTime = Date.now(); // Marca el inicio del tiempo
+
+    setLoading(true); // Muestra el spinner
+
+    // Espera a que el spinner esté visible al menos 1 segundo
+    await new Promise((resolve) => {
+      const elapsedTime = Date.now() - startTime;
+      const remainingTime = Math.max(0, MINIMUM_LOADING_TIME - elapsedTime);
+      setTimeout(() => {
+        setLoading(false); // Oculta el spinner
+        resolve(); // Continúa con la lógica
+      }, remainingTime);
+    });
+
+    // Lógica principal después de que el spinner desaparezca
     if (words.includes(word) || word === words[1] || word === end) {
-      //stopPulseAnimation(divRef);
       setInputValue("");
-      //startShakeAnimation(divRef); // Assuming you meant startShakeAnimation here
+      startShakeAnimation(divRef);
       return;
     }
-    console.log("Checking answer for word:", word);
-    similarity(words[1], word, language).then((result) => {
-      if (result !== undefined) {
-        if (result > 0.090) {
-          similarity(end, word, language).then((result) => {
-            if (result > 0.15) {
-              setGameOver(true);
-              setopenWin(true);
-              saveCompletedLevels(playingDate, [...solution, word, end], language)
-              //stopPulseAnimation(divRef);
-            } else {
-              setWords([word, ...words]);
-              setWords((prevWords) => {
-                const newWords = [...prevWords]; // Crea una copia del array
-                newWords[1] = word; // Cambia el valor en la posición 1
-                return newWords; // Devuelve el array modificado
-              });
-              setSolution(solution => [...solution, word]);
-              setInputValue("");
-              setNewKey(Math.random().toString(16));
-            }
-          })
-        } else {
-          //stopPulseAnimation(divRef);
-          //startShakeAnimation(divRef);
-        }
-      } else {
-        //startShakeAnimation(divRef);
-      }
 
-    })
-  }
+    const result = await similarity(words[1], word, language);
+    if (result !== undefined && result > 0.090) {
+      const endResult = await similarity(end, word, language);
+      if (endResult > 0.15) {
+        setGameOver(true);
+        setopenWin(true);
+        saveCompletedLevels(playingDate, [...solution, word, end], language);
+      } else {
+        setWords([word, ...words]);
+        setWords((prevWords) => {
+          const newWords = [...prevWords];
+          newWords[1] = word;
+          return newWords;
+        });
+        setSolution((solution) => [...solution, word]);
+        setInputValue("");
+        setNewKey(Math.random().toString(16));
+      }
+    } else {
+      startShakeAnimation(divRef);
+    }
+  };
 
   return (
     <div className="App">
       <header>
-        <Bar changeDate={changeDate} openCalendar={openCalendar} setOpenCalendar={setOpenCalendar} language={language} setLanguage={setLanguage} getWordFromSeed={getWordFromSeed} setPlayingDate={setPlayingDate} setEnd={setEnd} setStart={setStart} setWords={setWords}></Bar>
+        <Bar
+          changeDate={changeDate}
+          openCalendar={openCalendar}
+          setOpenCalendar={setOpenCalendar}
+          language={language}
+          setLanguage={setLanguage}
+          getWordFromSeed={getWordFromSeed}
+          setPlayingDate={setPlayingDate}
+          setEnd={setEnd}
+          setStart={setStart}
+          setWords={setWords}
+        ></Bar>
       </header>
       <main>
-        <div className='background'></div>
-        <div ref={centerContainerRef} className='center-container' id={"center-container"}>
+        <div className="background"></div>
+        <div ref={centerContainerRef} className="center-container" id={"center-container"}>
           {gameOver && <VictoryScreen reset={reset} getWordFromSeed={getWordFromSeed} language={language} setEnd={setEnd} setPlayingDate={setPlayingDate} setStart={setStart} setWords={setWords} changeDate={changeDate} date={playingDate} setOpenCalendar={setOpenCalendar}></VictoryScreen>}
           <div id={"scroll-container"} className='scroll-container'>
 
@@ -178,20 +215,26 @@ function App() {
               newKey={newKey + 1}></Line>}
 
             {words.map((word, index) => (
-              console.log("Word", word, index),
               <>
 
                 {index === 0 ? (
                   // Si es el primer WordContainer (posición 0), renderiza el input editable
                   <>
-                    <div key={word} className="writing-container-animated">
-                      <WordContainer
-                        index={-1}
-                        canWritte={!gameOver}
-                        checkAnswer={checkAnswer}
-                        inputValue={inputValue}
-                        setInputValue={setInputValue}
-                      ></WordContainer>
+                    <div key={word} id='word-input' className="writing-container-animated input-div">
+                      <div className='input-div overflow-hidden'>
+                        <WordContainer
+                          index={-1}
+                          canWritte={!gameOver}
+                          checkAnswer={checkAnswer}
+                          inputValue={inputValue}
+                          setInputValue={setInputValue}
+                        ></WordContainer>
+
+                        <div className={`spinner-container ${!loading ? 'fade-out' : ''}`} onAnimationEnd={handleAnimationEnd}>
+                          <BarLoader color="#333" width="99%" height={4} speedMultiplier={1} loading={visibleLoader} />
+                        </div>
+
+                      </div>
                     </div>
 
                     {gameOver && <Line Line
@@ -200,7 +243,6 @@ function App() {
                       newKey={newKey + 1}></Line>}
                   </>
                 ) : (
-
                   // Si no es el primer WordContainer, renderiza el resto normalmente
                   <div key={word} className={(word !== words[1]) && gameOver ? "item" : "fadeIn"}>
                     <WordContainer

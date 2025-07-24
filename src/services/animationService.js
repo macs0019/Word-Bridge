@@ -1,8 +1,8 @@
 export function startShakeAnimation(divRef) {
     divRef.current.classList.add("shake-animation");
+    divRef.current.classList.remove("writing-container-animated");
     divRef.current?.addEventListener("animationend", () => {
         stopShakeAnimation(divRef);
-        startPulseAnimation(divRef);
     });
 }
 

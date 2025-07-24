@@ -24,5 +24,5 @@
 }
 
 .animateLine {
-  animation: lineAnimation 0.7s ease-out forwards;
+  animation: lineAnimation 0.3s ease-out forwards;
 }
