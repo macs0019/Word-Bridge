@@ -41,7 +41,7 @@ const WordContainer = ({ canWritte, checkAnswer, inputValue, setInputValue }) =>
         if (event.key === 'Enter') {
             checkAnswer(inputValue);
         } else {
-            playSound(); // Reproduce el sonido con cada pulsación de tecla
+            //playSound(); // Reproduce el sonido con cada pulsación de tecla
         }
     };
 

@@ -1,11 +1,9 @@
-import { generate, count } from "random-words";
-
 export function generateDateList() {
     let startDate = new Date("2023-11-21");
     let endDate = new Date();
     let dateArray = [];
 
-    while (startDate < endDate) {
+    while (startDate <= endDate ) {
         dateArray.push(startDate.toISOString().split('T')[0]);
         startDate.setDate(startDate.getDate() + 1);
     }
@@ -36,5 +34,17 @@ export function changeDate(date, language, setEnd, setWords, setStart, getWordFr
     setEnd(newEnd);
     setWords(['',newStart]); // Asumiendo que quieres iniciar la lista de palabras con la palabra de inicio
     setPlayingDate(date); // Actualizar la fecha de juego
+}
+
+export function dateToLevelNumber(date) {
+    const startDate = new Date("2023-11-21"); // Fecha de inicio fija
+    const targetDate = new Date(date); // Fecha proporcionada
+
+    // Calcula la diferencia en milisegundos y la convierte a días
+    const differenceInTime = targetDate - startDate;
+    const differenceInDays = Math.floor(differenceInTime / (1000 * 60 * 60 * 24));
+
+    // El nivel comienza en 1, así que suma 1 a la diferencia en días
+    return differenceInDays + 1;
 }
 

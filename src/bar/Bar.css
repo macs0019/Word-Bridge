@@ -9,10 +9,13 @@
 
 .bar-container {
     display: flex;
-    justify-content: space-between; /* Coloca el título a la izquierda y los íconos a la derecha */
+    justify-content: space-between;
+    /* Coloca el título a la izquierda y los íconos a la derecha */
     align-items: center;
-    width: 90%; /* Ancho de la barra */
-    margin: 0 auto; /* Centra horizontalmente la barra */
+    width: 90%;
+    /* Ancho de la barra */
+    margin: 0 auto;
+    /* Centra horizontalmente la barra */
     color: #FAFAF8;
     padding-left: 15px;
     padding-right: 15px;
@@ -27,12 +30,17 @@
 .bar-container::after {
     content: '';
     display: block;
-    width: 100%; /* Ocupa el 90% del ancho de la barra */
-    height: 2px; /* Altura del separador */
-    background-color: #333; /* Color del separador */
-    margin: 0 auto; /* Centra el separador horizontalmente */
+    width: 100%;
+    /* Ocupa el 90% del ancho de la barra */
+    height: 2px;
+    /* Altura del separador */
+    background-color: #333;
+    /* Color del separador */
+    margin: 0 auto;
+    /* Centra el separador horizontalmente */
     position: absolute;
-    bottom: -2px; /* Coloca el separador justo debajo de la barra */
+    bottom: -2px;
+    /* Coloca el separador justo debajo de la barra */
     left: 0;
     right: 0;
 }
@@ -47,39 +55,84 @@
     font-weight: bold;
     color: #333;
     text-align: center;
-    font-size: 2rem; /* Aumenta el tamaño del texto del título */
+    font-size: 2rem;
+    /* Aumenta el tamaño del texto del título */
 }
 
 .tiles {
-    height: 5rem; /* Aumenta la altura de los botones */
-    width: 5rem; /* Aumenta el ancho de los botones */
-    background-color: #333;
-    color: #FAFAF8 !important;
+    border: 2px solid #333;
+    /* Borde por defecto */
+    background-color: transparent;
+    /* Fondo transparente */
+    color: #333;
+    /* Texto por defecto */
+    border-radius: 8px;
+    /* Bordes redondeados */
     display: flex;
-    align-items: center;
     justify-content: center;
-    border-radius: 10px;
+    align-items: center;
+    width: 90px;
+    /* Ancho */
+    height: 90px;
+    /* Altura */
     cursor: pointer;
-    font-family: 'Baloo 2', cursive;
-    font-size: 1.2rem; /* Aumenta el tamaño del texto dentro de los botones */
+    font-family: 'Clear Sans', 'Helvetica Neue', Arial, sans-serif;
+    font-weight: bold;
+    font-size: 1.2rem;
+    /* Tamaño del texto */
+    transition: all 0.3s ease;
+    position: relative;
+    /* Asegura que los elementos hijos se posicionen dentro de la caja */
+}
+
+.tiles.completed-tile {
+    /*background-color: #d4edda;
+    color: #FAFAF8;*/
+    background-color: #333 !important;
+    /* Fondo gris oscuro al pasar el mouse */
+    color: #fff !important;
+    /* Texto blanco al pasar el mouse */
+
+}
+
+.tiles:hover {
+    background-color: #333;
+    /* Fondo gris oscuro al pasar el mouse */
+    color: #fff;
+    /* Texto blanco al pasar el mouse */
 }
 
 .tiles-container {
     display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
     max-height: 48vh;
     overflow: auto;
-    justify-content: center;
     word-wrap: break-word;
     white-space: normal;
     padding: 1rem;
 
 }
 
+.calendar-grid {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .modal-title {
-    font-family: 'Baloo 2', cursive;
+    font-family: 'Clear Sans', 'Helvetica Neue', Arial, sans-serif;
     font-weight: bold;
-    color: #333;
+    font-size: 1.5rem;
     text-align: center;
+    color: #333;
+    text-transform: uppercase;
+    font-weight: 800 !important;
+    margin-top: 20px !important;
+    padding-bottom: 20px !important;
+    border-bottom: 1px solid #333;
+    width: 90%;
 }
 
 .box-container {
@@ -115,7 +168,7 @@
 
 /* Handle */
 .tiles-container::-webkit-scrollbar-thumb {
-    background: #FAFAF8;
+    background: #333;
     /* Scrollbar color */
     border-radius: 10px;
     /* Rounded corners for the scrollbar */
@@ -123,7 +176,7 @@
 
 /* Handle on hover */
 .tiles-container::-webkit-scrollbar-thumb:hover {
-    background: #FAFAF8;
+    background: #333;
 }
 
 @media only screen and (max-width: 900px) {
@@ -140,25 +193,127 @@
 }
 
 @media only screen and (max-width: 750px) {
-    .title{
+    .title {
         font-size: 1rem;
     }
 }
 
 .green-tile {
-    background-color: #9DBC98;
+    /*background-color: #9DBC98;*/
+    background-color: #333 !important;
+    /* Fondo gris oscuro al pasar el mouse */
+    color: #fff !important;
     /* Ajusta el color según tu diseño */
 }
 
 .navbar-separator {
-    width: 90%; /* Ocupa el 90% del ancho de la barra */
-    height: 2px; /* Altura del separador */
-    background-color: #333; /* Color del separador */
-    margin: 0 auto; /* Centra el separador horizontalmente */
+    width: 90%;
+    /* Ocupa el 90% del ancho de la barra */
+    height: 2px;
+    /* Altura del separador */
+    background-color: #333;
+    /* Color del separador */
+    margin: 0 auto;
+    /* Centra el separador horizontalmente */
 }
 
 .icons-container {
     display: flex;
     align-items: center;
-    gap: 1rem; /* Espaciado entre los íconos */
+    gap: 1rem;
+    /* Espaciado entre los íconos */
+}
+
+.seal {
+    position: absolute;
+    top: -10px;
+    /* Posiciona el sello en la esquina superior derecha */
+    right: -10px;
+    color: black;
+    /* Texto negro */
+    font-size: 0.8rem;
+    /* Tamaño del texto */
+    font-weight: bold;
+    /* Texto en negrita */
+    width: 30px;
+    /* Ancho del sello */
+    height: 30px;
+    /* Altura del sello */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 3px solid #333;
+    /* Borde de color #333 */
+    border-radius: 50%;
+    /* Forma esférica */
+    /*box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);*/
+    /* Sombra para darle profundidad */
+}
+
+.green-seal {
+    background-color: #A8D5BA;
+    /* Verde pastel */
+}
+
+.yellow-seal {
+    background-color: #FFF4B3;
+    /* Amarillo pastel */
+}
+
+.red-seal {
+    background-color: #F5B3B3;
+    /* Rojo pastel */
+}
+
+.seal span {
+    display: inline-block;
+    font-size: 0.8rem;
+    /* Tamaño del texto */
+    font-weight: bold;
+    /* Texto en negrita */
+    font-family: 'Clear Sans', 'Helvetica Neue', Arial, sans-serif !important;
+}
+
+.rainbow-seal {
+    animation: rainbowBackground 5s infinite;
+    /* Animación suave que se repite infinitamente */
+    z-index: 100;
+}
+
+/* Animación para cambiar entre colores pastel */
+@keyframes rainbowBackground {
+    0% {
+        background-color: #FFB3BA;
+        /* Rojo pastel */
+    }
+
+    16% {
+        background-color: #FFDFBA;
+        /* Naranja pastel */
+    }
+
+    33% {
+        background-color: #FFFFBA;
+        /* Amarillo pastel */
+    }
+
+    50% {
+        background-color: #BAFFC9;
+        /* Verde pastel */
+    }
+
+    66% {
+        background-color: #BAE1FF;
+        /* Azul pastel */
+    }
+
+    83% {
+        background-color: #D5BAFF;
+        /* Índigo pastel */
+    }
+
+    100% {
+        background-color: #FFB3BA;
+        /* Rojo pastel (vuelve al inicio) */
+    }
 }

@@ -1,0 +1,133 @@
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        /* Tamaño normal */
+    }
+
+    50% {
+        transform: scale(1.05);
+        /* Aumenta ligeramente el tamaño */
+    }
+
+    100% {
+        transform: scale(1);
+        /* Vuelve al tamaño normal */
+    }
+}
+
+@keyframes lose-life {
+    0% {
+        clip-path: inset(0% 0% 0% 0%);
+        /* El corazón está completamente lleno */
+        opacity: 1;
+    }
+
+    50% {
+        clip-path: inset(50% 0% 0% 0%);
+        /* El corazón está medio vacío */
+        opacity: 0.8;
+        /* Reduce ligeramente la opacidad */
+    }
+
+    100% {
+        clip-path: inset(100% 0% 0% 0%);
+        /* El corazón está completamente vacío */
+        opacity: 0;
+        /* Desaparece completamente */
+    }
+}
+
+.hearts-and-reset {
+    position: relative;
+    /* Contenedor relativo para que el botón de reinicio se posicione dentro de este */
+    display: flex;
+    justify-content: center;
+    /* Centra los corazones horizontalmente */
+    align-items: center;
+    /* Alinea verticalmente los corazones */
+    margin-bottom: 20px;
+    /* Espaciado respecto al scroll-container */
+    margin-top: 20px;
+    width: 100%;
+}
+
+.hearts-container {
+    display: flex;
+    gap: 10px;
+    /* Espaciado entre los corazones */
+    position: relative;
+}
+
+.heart-icon {
+    position: relative;
+    width: 40px;
+    /* Ancho del corazón */
+    height: 40px;
+    /* Altura del corazón */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: pulse 2s infinite;
+    /* Aplica la animación de pulso */
+}
+
+/* Fondo del corazón (relleno rojizo más intenso) */
+.heart-icon .heart-background {
+    font-size: 2rem;
+    /* Tamaño del corazón */
+    color: #D25D5D;
+    /* Relleno rojizo más intenso */
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    /* Fondo detrás del borde */
+}
+
+/* Corazón con solo borde */
+.heart-icon .heart-border {
+    font-size: 2rem;
+    /* Tamaño del corazón */
+    color: transparent;
+    /* Sin relleno */
+    stroke: #333;
+    /* Color del borde */
+    stroke-width: 2.2px;
+    /* Grosor del borde aumentado */
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    /* Borde encima del fondo */
+}
+
+.reset-icon {
+    position: absolute;
+    /* Posiciona el botón de reinicio de forma absoluta */
+    right: 25%;
+    /* Alinea el botón a la derecha del contenedor */
+    top: 50%;
+    /* Centra verticalmente el botón dentro del contenedor */
+    transform: translateY(-50%);
+    /* Ajusta el centrado vertical */
+    color: #333;
+    /* Color del ícono de reinicio */
+    cursor: pointer;
+    /* Cambia el cursor al pasar sobre el ícono */
+    transition: transform 0.2s ease;
+    /* Animación al pasar el mouse */
+}
+
+.heart-lost .heart-background {
+    animation: lose-life 0.6s forwards;
+    /* Aplica la animación al fondo */
+}
+
+.heart-lost .heart-border {
+    opacity: 1 !important;
+    /* Mantiene el borde visible */
+    visibility: visible !important;
+    /* Asegura que el borde no desaparezca */
+    animation: none;
+    /* Evita que el borde sea afectado por la animación */
+}

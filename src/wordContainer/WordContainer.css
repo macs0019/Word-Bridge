@@ -87,21 +87,4 @@
     /* O cualquier otro display que se ajuste a tu diseño */
 }
 
-@keyframes pulse {
-
-    0%,
-    100% {
-        transform: scale(1);
-        /* Estado inicial y final: el elemento está a su tamaño normal */
-    }
-
-    50% {
-        transform: scale(1.02);
-        /* En el punto medio de la animación, el elemento crece un 5% */
-    }
-}
-
-.pulse-animation {
-    animation: pulse 2s infinite ease-in-out;
-}
 

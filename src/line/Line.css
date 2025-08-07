@@ -1,10 +1,44 @@
 .vertical-line {
+  position: relative;
+  /* Necesario para posicionar los pseudo-elementos */
   width: 3px;
-  height: 2rem;
+  /* Grosor de la línea */
+  height: 2rem; /* Asegúrate de que todas las líneas tengan la misma altura */
   background-color: #333;
+  /* Color de la línea */
   border-radius: 5px;
   margin: 0 auto;
-  /*box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);*/
+}
+
+.vertical-line::before,
+.vertical-line::after {
+  content: '';
+  position: absolute;
+  width: 3px;
+  /* Grosor de las líneas diagonales */
+  height: 10px;
+  /* Longitud de las líneas diagonales */
+  background-color: #333;
+  /* Color de las líneas diagonales */
+  transform-origin: bottom center;
+  /* Punto de rotación */
+  border-radius: 5px;
+}
+
+.vertical-line::before {
+  transform: rotate(-45deg);
+  /* Rotación para la línea izquierda */
+  bottom: 80%; /* Coloca la punta justo encima de la línea */
+  right: -6px;
+  /* Ajusta la posición horizontal */
+}
+
+.vertical-line::after {
+  transform: rotate(45deg);
+  /* Rotación para la línea derecha */
+  bottom: 80%; /* Coloca la punta justo encima de la línea */
+  left: -6px;
+  /* Ajusta la posición horizontal */
 }
 
 .min-height {

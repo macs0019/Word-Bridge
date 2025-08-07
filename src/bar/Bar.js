@@ -1,25 +1,21 @@
 import './Bar.css'
-import HelpIcon from '@mui/icons-material/Help';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import Modal from '@mui/material/Modal';
 import { useState } from 'react';
-import React from 'react';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import { Height } from '@mui/icons-material';
 import { Grow } from '@mui/material';
 import { generateDateList } from '../services/dateService';
 import { useEffect } from 'react';
 import { Grid } from '@mui/material';
-import NativeSelect from '@mui/material';
-import FormControl from '@mui/material';
 import LanguageDropdown from '../dropdown/LenguageDropdown';
-import { getWordFromSeed } from '../services/randomWords';
 import exampleGif from '../files/example.gif';
+import KidStarIcon from '@mui/icons-material/Star'; // Cambia esto si el ícono tiene un nombre diferente
+import Confetti from 'react-confetti';
 
-const Bar = ({ changeDate, language, setLanguage, setEnd, setWords, setStart, getWordFromSeed, setPlayingDate, openCalendar, setOpenCalendar }) => {
+
+const Bar = ({ changeDate, language, setLanguage, setEnd, setWords, setStart, getWordFromSeed, setPlayingDate, openCalendar, setOpenCalendar, reset, date }) => {
 
     const [openHelp, setOpenHelp] = useState(false);
     const handleOpenHelp = () => setOpenHelp(true);
@@ -32,27 +28,30 @@ const Bar = ({ changeDate, language, setLanguage, setEnd, setWords, setStart, ge
 
     const [dateList, setDateList] = useState([]);
 
+    // Se encarga de actualizar los valores al cambiar de día en el calendario
     const changeDay = (date) => {
         changeDate(date, language, setEnd, setWords, setStart, getWordFromSeed, setPlayingDate);
         console.log(date)
         handleCloseCalendar(true);
     }
 
+    // Se encarga de generar la lista de fechas al abrir el calendario
     useEffect(() => {
         if (openCalendar) {
             const endDate = new Date();
             endDate.setDate(new Date().getDate());
-            //const endDateFormat = endDate.toISOString().split('T')[0];
 
             const list = generateDateList();
             setDateList(list);
         }
     }, [openCalendar]);
 
+    // Se encarga de cargar los niveles completados desde el localStorage
     useEffect(() => {
         const levels = localStorage.getItem('completedLevels');
         setCompletedLevels(levels ? JSON.parse(levels) : {});
     }, [openCalendar])
+
 
     return (
         <>
@@ -71,7 +70,7 @@ const Bar = ({ changeDate, language, setLanguage, setEnd, setWords, setStart, ge
                 aria-describedby="modal-modal-description"
                 sx={{
                     '.MuiPaper-root': {
-                        border: '1px solid #ccc', // Bordes consistentes con el resto de la app
+                        border: '1px solid #333', // Bordes consistentes con el resto de la app
                         boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', // Sombra ligera
                         outline: 'none',
                         borderRadius: '8px', // Bordes redondeados
@@ -97,6 +96,7 @@ const Bar = ({ changeDate, language, setLanguage, setEnd, setWords, setStart, ge
                             id="modal-modal-title"
                             variant="h6"
                             component="h2"
+                            className='modal-title'
                             sx={{
                                 fontWeight: 'bold',
                                 color: '#333',
@@ -172,24 +172,72 @@ const Bar = ({ changeDate, language, setLanguage, setEnd, setWords, setStart, ge
                 <Grow in={openCalendar} timeout={300}>
                     <Box className={"box-container"}>
                         <Typography id="modal-modal-title" variant="h6" component="h2" className='modal-title'>
-                            📈 Levels history 📈
+                            Levels history
                         </Typography>
                         <Grid container spacing={2} className='tiles-container'>
-                            {[...dateList].reverse().map((date, index, reversedArray) => (
-                                <Grid item xs={'auto'} key={index} className={"calendar-grid"}>
-                                    <Box
-                                        onClick={() => changeDay(date)}
-                                        className={
-                                            `tiles ${completedLevels[date] && completedLevels[date][language] && completedLevels[date][language].length > 0
-                                                ? "green-tile"
-                                                : ""
-                                            }`
-                                        }
-                                    >
-                                        {reversedArray.length - index}
-                                    </Box>
-                                </Grid>
-                            ))}
+                            {[...dateList].reverse().map((date, index, reversedArray) => {
+                                const wordCount =
+                                    completedLevels[date] &&
+                                    completedLevels[date][language] &&
+                                    completedLevels[date][language].length - 2;
+
+                                // Determina el color del fondo según el número de palabras usadas
+                                let sealClass = '';
+                                if (wordCount === 1) {
+                                    sealClass = 'rainbow-seal';
+                                } else if (wordCount > 10) {
+                                    sealClass = 'red-seal';
+                                } else if (wordCount > 5) {
+                                    sealClass = 'yellow-seal';
+                                } else if (wordCount > 0) {
+                                    sealClass = 'green-seal';
+                                }
+
+                                return (
+                                    <Grid item xs={'auto'} key={index} className={"calendar-grid"}>
+                                        <Box
+                                            onClick={() => changeDay(date)}
+                                            className={`
+                                                tiles 
+                                                ${completedLevels[date] && completedLevels[date][language] && completedLevels[date][language].length > 0
+                                                    ? "green-tile"
+                                                    : ""
+                                                }`}
+                                            style={{ position: 'relative', overflow: 'visible' }} // Permite que el sello sea visible fuera de la caja
+                                        >
+                                            {/* Contenedor para el confeti con overflow: hidden */}
+                                            {wordCount === 1 && (
+                                                <div
+                                                    style={{
+                                                        position: 'absolute',
+                                                        top: 0,
+                                                        left: 0,
+                                                        width: '100%',
+                                                        height: '100%',
+                                                        overflow: 'hidden', // Asegura que el confeti no se salga de la caja
+                                                    }}
+                                                >
+                                                    <Confetti
+                                                        width={200} // Ajusta el ancho al tamaño de la cajita
+                                                        height={200} // Ajusta la altura al tamaño de la cajita
+                                                        numberOfPieces={50} // Reduce el número de piezas de confeti
+                                                        gravity={0.01} // Hace que caiga más lento
+                                                        recycle={true} // No reciclar confeti
+                                                        initialVelocityY={10} // Velocidad inicial más baja para caída lenta
+                                                    />
+                                                </div>
+                                            )}
+                                            {/* Sello en la esquina superior derecha */}
+                                            {wordCount > 0 && (
+                                                <div className={`seal ${sealClass}`}>
+                                                    <span>{wordCount}</span>
+                                                </div>
+                                            )}
+                                            {reversedArray.length - index}
+                                        </Box>
+                                    </Grid>
+                                );
+                            })}
                         </Grid>
                     </Box>
                 </Grow>
